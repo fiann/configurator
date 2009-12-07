@@ -1,0 +1,147 @@
+  <%= f.error_messages %>
+  
+  <fieldset>
+    <h2>1. Provide a name for the configuration</h2>
+    <p class="plugin_choice">
+      <%= f.text_field :name, :class => 'configuration_name' %>
+    </p>
+    <p>(required) Every configuration has a name so that you can 
+      retrieve it in the future.
+    </p>
+  </fieldset>
+
+  <hr />
+
+  <fieldset>
+    <h2>2. Choose data capture plugins</h2>
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:microformat, :include), true,
+            @tag_configuration.has_plugin?(mf_plugin) %>
+      <%= label_tag label_for_plugin_param(:microformat, :include),
+            'Page data HTML microformats', :class => 'right plugin_name' %>
+    </p>
+    <p>Collects basic information about the page, from hPage
+      and other HTML microformat markup on the page.</p>
+	  
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:google_analytics_markup, :include), true,
+            @tag_configuration.has_plugin?(ga_markup_plugin) %>
+      <%= label_tag label_for_plugin_param(:google_analytics_markup, :include),
+            'Google Analytics markup', :class => 'right plugin_name' %>
+    </p>
+    <p>
+      Collects basic basic page view information from Google Analytics 
+      tags on the page.<br/>
+      <em>This plugin is purely illustrative, it does not replace the Google tag, 
+        and it is not supported by Google</em>.
+    </p>
+  </fieldset>
+
+  <hr />
+
+  <fieldset>
+  	<h2>3. Choose data transport plugins</h2>
+
+  <p class="plugin_choice">
+    <%= check_box_tag label_for_plugin_param(:sample_get, :include), true,
+          @tag_configuration.has_plugin?(sample_get_plugin), 
+          :class => 'configurable' %>
+    <%= label_tag label_for_plugin_param(:sample_get, :include), 
+		"Sample HTTP GET data transport plugin", :class => 'right plugin_name' %> <br />
+  </p>
+  <p>
+	Sends information to a server using a single pixel image request URL.
+  </p>
+  <div id="configure_plugin_<%= sample_get_plugin.id %>">
+    <p>
+      <%= label_tag label_for_plugin_param(:sample_get, :server_url), 
+            'Server URL' %>
+      <%= text_field_tag label_for_plugin_param(:sample_get, :server_url), 
+            value_for_plugin_param(:sample_get, :server_url) %>
+    </p>
+    <p>
+      <%= label_tag label_for_plugin_param(:sample_get, :account_id), 'Account ID' %>
+      <%= text_field_tag label_for_plugin_param(:sample_get, :account_id), 
+            value_for_plugin_param(:sample_get, :account_id) %>
+    </p>
+  </div>
+  
+  <p class="plugin_choice">
+    <%= check_box_tag label_for_plugin_param(:sample_post, :include), true,
+          @tag_configuration.has_plugin?(sample_post_plugin), 
+          :class => 'configurable' %>
+    <%= label_tag label_for_plugin_param(:sample_post, :include), "Sample HTTP POST plugin",
+          :class => 'right plugin_name' %> <br />  	
+	<small>Sends information to a server by posting a form into a hidden iframe.</small>
+  </p>
+  
+  <div id="configure_plugin_<%= sample_post_plugin.id %>">
+    <p>
+      <%= label_tag label_for_plugin_param(:sample_post, :server_url), 'Server URL' %>
+      <%= text_field_tag label_for_plugin_param(:sample_post, :server_url), 
+            value_for_plugin_param(:sample_post, :server_url) %>
+      
+    </p>
+    <p>
+      <%= label_tag label_for_plugin_param(:sample_post, :account_id), 'Account ID' %>
+      <%= text_field_tag label_for_plugin_param(:sample_post, :account_id), 
+            value_for_plugin_param(:sample_post, :account_id) %>
+    </p>
+  </div>
+  
+  </fieldset>
+
+  <hr />
+  
+  <fieldset>
+  	<h2>4. Add third party library</h2>
+
+  <p class="plugin_choice">
+    <%= check_box_tag label_for_plugin_param(:jquery, :include), true,
+          @tag_configuration.has_plugin?(jquery_plugin) %>
+    <%= label_tag label_for_plugin_param(:jquery, :include), 
+          'jQuery library', :class => 'right plugin_name' %> 
+  </p>
+  <p>
+    jQuery is a required dependency for the jsHub code. You do not need this 
+	if you have jQuery 1.2 or later on your site already. Adds 19Kb to the file 
+	when it is served gzipped.
+  </p>
+  </fieldset>
+
+  <hr />
+
+  <fieldset>
+  	<h2>5. Comments</h2>
+  
+  <p>
+    <%= f.text_area :comments %>
+  </p>
+  <p class="hide">
+    <%= f.label :jshub_version, 'jsHub code version:' %>
+    <%= f.select :jshub_version, tag_versions, :size => 1 %>
+  </p>
+  
+  </fieldset>
+
+  <hr />  
+  
+  <script type="text/javascript">
+    function bindConfig() {
+      var checkbox = this, id = checkbox.id.match(/[0-9]+/), config_div = $('#configure_plugin_'+id);
+      $(checkbox).bind("change click", function(evt) {
+        if (evt.target.checked) {
+          config_div.show('medium');
+        } else {
+          config_div.hide('medium');
+        }
+      });
+      if (! checkbox.checked) {
+	  	config_div.hide();
+	  }
+    }
+    
+    $('input:checkbox.configurable').each(bindConfig);
+  </script>
+
+  

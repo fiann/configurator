@@ -1,0 +1,47 @@
+<h1><%= @tag_configuration.name %></h1>
+
+<fieldset id="history"><h2>Change history</h2>
+  <% @revisions.each do |rev| %> 
+  <div id="r<%= rev.revision_number %>">
+    <p class="rev_header"><strong>Revision <%= rev.revision_number %></strong>
+	  by <i><%= rev.user.username %></i>, 
+	  <%= rev.created_at.to_s(:long) %>.
+	  Get this version: 
+	  <a class="debug-link" href="#" title="show/hide debug hash code">debug</a>, 
+	  <a class="production-link" href="#" title="show/hide production hash code">production</a>.
+	</p>
+	<div class="rev_debug" style="display:none;">
+	  SHA1 hash: <code><%= rev.sha1_debug %></code>. <br />
+	  Download the <%= link_to 'debug version', 
+        tag_configuration_show_revision_debug_path(:revision_number => rev.revision_number) %>
+	</div>
+	<div class="rev_production" style="display:none;">
+	  SHA1 hash: <code><%= rev.sha1_production %></code>. <br />
+	  Download the <%= link_to 'production version', 
+        tag_configuration_show_revision_production_path(:revision_number => rev.revision_number) %>
+	</div>
+	<ul class="rev_messages">
+	  <% for message in rev.messages %>
+	  <li><%= message %></li>
+	  <% end %>
+	</ul>
+  </div>
+  <% end %>
+</fieldset>
+
+<hr />
+
+<div class="button back">
+  <%= link_to 'Back to configuration', @tag_configuration %>
+</div>
+
+<script type="text/javascript">
+  $('a.debug-link').bind('click', function (evt) {
+  	$(evt.target).parents('div').find('div.rev_debug').toggle();
+  	$(evt.target).parents('div').find('div.rev_production').hide();
+  })
+  $('a.production-link').bind('click', function (evt) {
+  	$(evt.target).parents('div').find('div.rev_production').toggle();
+  	$(evt.target).parents('div').find('div.rev_debug').hide();
+  })
+</script>

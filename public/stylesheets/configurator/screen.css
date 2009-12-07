@@ -1,0 +1,487 @@
+
+
+
+
+
+
+/*  */
+/* Top banner */
+/*  */
+div#header {
+  line-height: 1;
+  margin-bottom: -60px;
+  /* Sitewide navigation bar */
+  /* Text banner with login links */ }
+  div#header #logo img {
+    margin-top: 8px;
+    margin-bottom: -3em; }
+  div#header #sitenav {
+    position: relative;
+    top: -78px; }
+    div#header #sitenav a:link, div#header #sitenav a:visited {
+      color: #000000;
+      padding: 0em 0.25px; }
+    div#header #sitenav ul {
+      text-align: center;
+      font: normal 20px Tahoma,Verdana,'Bitstream Vera Sans',Helvetica,Arial,sans-serif;
+      font-weight: bold;
+      color: #000000; }
+    div#header #sitenav li {
+      display: inline;
+      white-space: nowrap;
+      padding: .25em 0.75em 0.5em; }
+      div#header #sitenav li.active {
+        background: #f9fafb; }
+      div#header #sitenav li.disabled, div#header #sitenav li.disabled :link, div#header #sitenav li.disabled :visited {
+        color: #a0ca1f; }
+  div#header #banner {
+    position: relative;
+    top: -78px; }
+    div#header #banner div.login {
+      margin-left: 40.6em; }
+
+div.icon.tick {
+  width: 32px;
+  height: 22px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -1200px; }
+  div.icon.tick a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.icon.edit {
+  width: 32px;
+  height: 22px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -1150px; }
+  div.icon.edit a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.icon.delete {
+  width: 32px;
+  height: 22px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -100px -1150px; }
+  div.icon.delete a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+
+div.button.download {
+  width: 220px;
+  height: 35px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -350px; }
+  div.button.download a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.create {
+  width: 220px;
+  height: 35px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -400px; }
+  div.button.create a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.login {
+  width: 70px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -500px; }
+  div.button.login a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.logout {
+  width: 80px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -550px; }
+  div.button.logout a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.new {
+  width: 150px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -600px; }
+  div.button.new a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.edit {
+  width: 55px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -650px; }
+  div.button.edit a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.delete {
+  width: 65px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -700px; }
+  div.button.delete a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.register {
+  width: 100px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -750px; }
+  div.button.register a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.cancel {
+  width: 100px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -950px; }
+  div.button.cancel a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.cancel-large {
+  margin-top: -2px;
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -900px; }
+  div.button.cancel-large a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+div.button.back {
+  width: 100px;
+  height: 25px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -1050px; }
+  div.button.back a {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    text-indent: -10000em;
+    text-decoration: none; }
+
+button.save_changes {
+  display: block;
+  height: inherit;
+  overflow: hidden;
+  text-indent: -10000em;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  margin-top: -2px;
+  width: 150px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -1000px; }
+button.save {
+  display: block;
+  height: inherit;
+  overflow: hidden;
+  text-indent: -10000em;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  margin-top: -2px;
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -800px; }
+button.login {
+  display: block;
+  height: inherit;
+  overflow: hidden;
+  text-indent: -10000em;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  margin-top: -2px;
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -450px; }
+button.create_account {
+  display: block;
+  height: inherit;
+  overflow: hidden;
+  text-indent: -10000em;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  margin-top: -2px;
+  width: 150px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url('images/configurator-sprite.png');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -50px -1100px; }
+
+table.saved_configs {
+  width: 100%; }
+  table.saved_configs td, table.saved_configs th {
+    text-align: left;
+    border: 0px none;
+    border-bottom: 1px solid #808080; }
+  table.saved_configs th:last-child {
+    width: 65px; }
+  table.saved_configs td.buttons {
+    width: 55px;
+    padding-right: 0; }
+    table.saved_configs td.buttons .yui-g {
+      width: 100% !important; }
+  table.saved_configs tbody tr:first-child {
+    border-top: 1px solid #808080; }
+
+body.jshub.configurator {
+  background: #ffffff url(../../images/jshub/bg_body.png) repeat-x;
+  margin: 0 auto;
+  padding: 0; }
+
+.hide {
+  display: none; }
+
+div.nav1 {
+  margin-bottom: 5px; }
+  div.nav1 .buttons {
+    height: 35px;
+    background-color: transparent;
+    background-image: url('images/configurator-sprite.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: -50px -200px; }
+    div.nav1 .buttons a {
+      display: block;
+      height: inherit;
+      overflow: hidden;
+      text-indent: -10000em;
+      text-decoration: none;
+      height: 35px; }
+  div.nav1 .login {
+    margin: 5px;
+    text-align: right; }
+    div.nav1 .login .login-state {
+      color: #858689; }
+    div.nav1 .login .username {
+      color: #858689;
+      font-weight: bold; }
+
+div.page hr {
+  margin: 20px;
+  border: none;
+  border-bottom: 1px solid #fff; }
+div.page a {
+  color: #821818;
+  text-decoration: none; }
+div.page h1 {
+  margin: 0;
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #fff;
+  font-size: 182%; }
+div.page h2 {
+  margin: 0;
+  margin-bottom: 5px;
+  color: #858689;
+  font-size: 138.5%; }
+div.page p.homepage {
+  font-size: 138.5%; }
+
+/* messages and notices */
+/*  */
+div#flash {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #ffc;
+  border: 1px solid #ccc; }
+
+div.errorExplanation {
+  padding: 10px;
+  background-color: #ffc;
+  border: 1px solid #ccc; }
+  div.errorExplanation h2 {
+    color: black; }
+
+
+div.footer {
+  margin-top: 2em;
+  border-top: 1px solid #e2e4e9; }
+  div.footer p.legal {
+    padding: 6px 15px;
+    color: #b4b7be;
+    font-size: 85%;
+    text-align: center; }
+    div.footer p.legal a:link, div.footer p.legal a:visited {
+      color: #b4b7be;
+      border-bottom: 1px dotted #b4b7be; }
+    div.footer p.legal a:hover {
+      color: #821818; }
+
+div.col2 .top {
+  padding: 15px;
+  min-height: 150px;
+  background-color: #efefef;
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -moz-border-radius-topleft: 0;
+  border-radius-topleft: 0;
+  border-top: 0;
+  border-left: 0;
+  border-bottom: 1px solid #a1a1a1;
+  border-right: 1px solid #a1a1a1; }
+div.col2 .bottom {
+  padding: 15px;
+  min-height: 150px; }
+
+.tips {
+  color: #404040; }
+
+div.content {
+  padding: 0; }
+  div.content .col1 {
+    min-height: 350px;
+    padding: 15px;
+    background-color: #efefef;
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -moz-border-radius-topright: 0;
+    border-radius-topright: 0;
+    border-top: 0;
+    border-left: 0;
+    border-bottom: 1px solid #a1a1a1;
+    border-right: 1px solid #a1a1a1; }
+  div.content .actions {
+    width: 22%; }
+    div.content .actions.big {
+      width: 50%; }
+
+textarea {
+  width: 100% !important;
+  height: 100px; }
+
+label {
+  float: left;
+  width: 12em;
+  min-height: 1em;
+  color: #858689;
+  font-weight: bold;
+  font-size: 108%; }
+  label.right {
+    float: none;
+    margin-left: 0.3em; }
+  label.configuration_name {
+    color: #000000;
+    width: 10.83em; }
+
+.label {
+  float: left;
+  width: 8em;
+  min-height: 1em;
+  color: #858689;
+  font-weight: bold; }
+
+p.plugin_choice {
+  margin-bottom: 0.6em; }
+
+.plugin_name {
+  color: #000000;
+  font-weight: bold; }
+  .plugin_name small {
+    font-weight: normal;
+    font-size: 85%; }
+
+input.configuration_name {
+  font-size: 182%;
+  width: 80% !important; }
+
+.details div {
+  margin-bottom: 1.0em; }
+.details p {
+  margin: 0.5em 0; }

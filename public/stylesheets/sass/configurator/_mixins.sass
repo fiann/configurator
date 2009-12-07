@@ -1,0 +1,38 @@
+# Mixins
+=debug-layout
+  :border 1px solid black
+
+=accessible-link-replacement
+  :display block
+  :height inherit
+  :overflow hidden
+  :text-indent -10000em
+  :text-decoration none
+  
+=sprite-background
+  :color transparent 
+  :image url('images/configurator-sprite.png') 
+  :repeat no-repeat 
+  :attachment scroll  
+
+=panel-drop-shadow
+  :border
+    :top 0
+    :left 0
+    :bottom = 1px "solid" !color_panel_border
+    :right = 1px "solid" !color_panel_border
+
+=panel-rounded-corners
+  :border-radius = !radius_border
+  :-moz-border-radius = !radius_border
+
+=panel-rounded-left
+  +panel-rounded-corners
+  :-moz-border-radius-topright = 0
+  :border-radius-topright = 0
+
+=panel-rounded-right
+  +panel-rounded-corners
+  :-moz-border-radius-topleft = 0
+  :border-radius-topleft = 0
+  

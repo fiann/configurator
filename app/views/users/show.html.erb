@@ -1,0 +1,29 @@
+<h1>Your account</h1>
+
+<fieldset>
+  <p>
+    Username: <%=h @user.username %>
+  </p>
+  <p>
+    Email address: <%= h @user.email %>
+  </p>
+  <%= link_to 'Change email address or password', edit_account_path %>
+</fieldset>
+
+<br />
+
+<fieldset>
+  <p>
+    You have <%= pluralize(@user.tag_configurations.count, 'saved tag configuration') %>.
+  </p>
+  <p>
+  	<% if @user.tag_configurations.count > 0 %>
+	    <%= link_to 'Show my configurations', :tag_configurations %> or 
+	<% end %>
+	    <%= link_to 'Create a new configuration', :new_tag_configuration %>
+  </p>
+</fieldset>
+
+  <div class="button logout">
+    <%= link_to 'Log out', :logout %>
+  </div>

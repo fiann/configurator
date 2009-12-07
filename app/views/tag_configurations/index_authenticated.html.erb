@@ -1,0 +1,49 @@
+<h1>jsHub Tag Configurator</h1>
+
+<fieldset id="config_listing">
+
+  <% unless saved_configurations.empty? %>
+
+  <h2>Your saved configurations</h2>
+  <table class="saved_configs">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Plugins</th>
+        <th>Comments</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for config in saved_configurations %>
+      <tr class="<%= cycle('row-odd', 'row-even') %>">
+        <td class="config_name"><%= link_to config.name, config %></td>
+        <td>
+          <%= config.plugins.map(&:name).to_sentence %>
+        </td>
+        <td class="comments"><%= config.comments %></td>
+        <td>
+
+          <div class="yui-g">
+            <div class="yui-u first">
+              <div class="icon edit" title="Edit"><%= link_to 'Edit', edit_tag_configuration_path(config) %></div>
+            </div>
+            <div class="yui-u">
+              <div class="icon delete" title="Delete"><%= link_to 'Delete', config, :confirm => 'Are you sure?', :method => :delete %></div>
+            </div>
+          </div>
+
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+  <% else %>
+  <p class="homepage">
+    You have not saved any configurations. If you create a configuration,
+    you will see it listed here.
+  </p>
+  <% end %>
+<div class="button create"><%= link_to 'Create a new configuration', new_tag_configuration_path %></div>
+</fieldset>
+

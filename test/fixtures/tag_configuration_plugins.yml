@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# Config 'one' has microformat and sample_get plugins, and the jQuery library
+# The sample_get plugin has 2 config parameters, the microformat plugin has no config
+one_sample_get:
+  tag_configuration: one
+  plugin: sample_get
+one_microformat:
+  tag_configuration: one
+  plugin: microformat
+one_jquery:
+  tag_configuration: one
+  plugin: jquery

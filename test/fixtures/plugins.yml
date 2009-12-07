@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+microformat:
+  type: Plugin::Microformat
+  
+sample_get:
+  type: Plugin::SampleGet
+  
+jquery:
+  type: Plugin::Jquery
+  

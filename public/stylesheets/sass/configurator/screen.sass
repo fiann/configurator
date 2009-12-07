@@ -1,0 +1,177 @@
+# for image urls use ../../images/configurator/
+
+@import configurator/_colors.sass
+@import configurator/_fonts
+@import configurator/_mixins
+@import configurator/_header
+@import configurator/_buttons
+@import configurator/_saved_config_table
+
+  
+body.jshub.configurator
+  :background = !color_body url("../../images/jshub/bg_body.png") "repeat-x"
+  :margin 0 auto
+  :padding 0
+
+.hide
+  :display none
+    
+
+div.nav1
+  :margin-bottom 5px
+
+  .buttons
+    :height 35px
+    :background
+      +sprite-background
+      :position = (0-!grid_icon_large) (4*(0-!grid_icon_large))
+    a
+      +accessible-link-replacement
+      :height 35px
+
+  .login
+    :margin 5px
+    :text-align right
+    .login-state 
+      :color = !color_text_dark
+    .username 
+      :color = !color_text_bold
+      :font-weight bold
+      
+div.page
+  hr
+    :margin 20px
+    :border none
+    :border-bottom 1px solid #fff      
+
+  a 
+    :color = !color_link
+    :text-decoration none
+
+  h1
+    :margin 0
+    :margin-bottom 10px
+    :padding-bottom = !content_padding
+    :border-bottom 1px solid #fff
+    :font-size = !font_header_size
+  h2
+    :margin 0
+    :margin-bottom 5px
+    :color = !color_text_dark
+    :font-size = !font_sub_header_size
+    
+  p.homepage
+    :font-size = !font_sub_header_size
+      
+
+/* messages and notices
+/*
+div#flash
+  :margin 5px 0
+  :padding 10px
+  :background-color #ffc
+  :border 1px solid #ccc
+  
+div.errorExplanation
+  :padding 10px
+  :background-color #ffc
+  :border 1px solid #ccc
+  h2
+    :color black
+
+# copyright notice in footer
+div.footer
+  :margin-top 2em
+  :border-top = 1px solid !color_footer_border
+
+  p.legal
+    :padding = 6px !content_padding
+    :color = !color_text_mid
+    :font-size = !font_small_size
+    :text-align center
+    a:link, a:visited
+      :color = !color_text_mid
+      :border-bottom = 1px "dotted" !color_text_mid
+    a:hover
+      :color = !color_link
+
+div.col2
+  .top
+    :padding = !content_padding
+    :min-height 150px
+    :background
+      :color = !color_panel_bg
+    +panel-rounded-right
+    +panel-drop-shadow
+          
+  .bottom
+    :padding = !content_padding
+    :min-height 150px
+    
+  ul.tips
+        
+.tips
+  :color = !color_text_darkest
+
+div.content
+  :padding 0
+
+  .col1
+    :min-height 350px
+    :padding = !content_padding
+    :background
+      :color = !color_panel_bg
+    +panel-rounded-left
+    +panel-drop-shadow
+
+  .actions
+    :width 22%
+    &.big
+      :width 50%
+        
+
+
+textarea
+  :width 100% !important
+  :height 100px
+
+label
+  :float left
+  :width 12em 
+  :min-height 1em
+  :color = !color_text_dark
+  :font-weight bold
+  :font-size = !font_bigger_size
+  &.right
+    :float none
+    :margin-left 0.3em
+  &.configuration_name
+    :color = !color_text_normal
+    :width = 10.83em 
+
+.label
+  :float left
+  :width 8em
+  :min-height 1em
+  :color = !color_text_dark
+  :font-weight bold
+
+p.plugin_choice
+  :margin-bottom 0.6em
+
+.plugin_name
+  :color = !color_text_normal
+  :font-weight bold
+  small
+    :font-weight normal
+    :font-size = !font_small_size
+
+input.configuration_name
+  :font-size = !font_header_size
+  :width 80% !important
+
+.details
+  div
+    :margin-bottom 1.0em
+  p
+    :margin 0.5em 0

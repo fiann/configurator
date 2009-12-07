@@ -1,0 +1,24 @@
+<div id="header">
+  <div id="logo">
+    <%= link_to image_tag("jshub/logo_jshub_with_mark.png"), root_url %>
+  </div>
+  <div id="sitenav" class="nav">
+    <ul>
+      <li class="first">
+        <%= link_to 'Home', 'https://jshub.org/', :title => 'Home' %>
+      </li>
+      <li>
+        <%= link_to 'Projects', 'https://jshub.org/projects/', :title => 'Home' %>
+      </li>
+      <li class="active">
+        <%= link_to 'Configurator', root_url, :title => 'Tag configurator' %>
+      </li>
+      <li class="last">
+        <%= link_to 'About', 'http://jshub.org/about/', :title => 'About' %>
+      </li>
+    </ul>
+  </div>
+  <div id="banner">
+    <%= render :partial => 'user_sessions/login_status' %>
+  </div>
+</div>

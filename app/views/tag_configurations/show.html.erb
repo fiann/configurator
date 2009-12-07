@@ -1,0 +1,145 @@
+<h1 id="config_name"><%= @tag_configuration.name %></h1>
+
+<fieldset id="data_capture_plugins">
+
+<h2>Data capture plugins</h2>
+
+<% if @tag_configuration.has_plugin? mf_plugin %>
+  <p class="plugin_name" id="plugin-<%= mf_plugin.id %>">
+  	Page data HTML microformats <br />
+	<small>
+      Collects basic information about the page, from <%= link_to 'hPage', 'http://jshub.org/project/wiki/hPage' %>
+	  and other HTML microformat markup on the page.
+	</small>
+  </p>
+<% end %>
+
+<% if @tag_configuration.has_plugin? ga_markup_plugin %>
+  <p class="plugin_name" id="plugin-<%= ga_markup_plugin.id %>">
+    Google Analytics markup capture <br />
+	<small>
+	  EXPERIMENTAL. Collects basic basic page view information from existing Google Analytics 
+	  tags on the page.<br />
+	  <em>This plugin is purely illustrative, it does not replace the Google tag, 
+	  and it is not supported by Google</em>.
+	</small>
+  </p>
+<% end %>
+
+<% unless @tag_configuration.has_markup_plugins? %>
+  <p>None</p>
+<% end %>
+
+</fieldset>
+
+  <hr />
+  
+<fieldset id="data_transport_plugins">
+
+<h2>Data transport plugins</h2>
+
+<% if @tag_configuration.has_plugin? sample_get_plugin %>
+  <p class="plugin_name" id="plugin-<%= sample_get_plugin.id %>">
+    Sample HTTP GET data transport plugin<br />
+	<small>Sends information to a server using a single pixel image request URL.</small>
+  </p>
+
+  <div id="configure_plugin_<%= sample_get_plugin.id %>">
+  	<% unless value_for_plugin_param(:sample_get, :server_url).nil? %>
+    <p class="plugin_param" id="server_url">
+      <span class="label">Server URL:</span>
+      <span class="value"><%= value_for_plugin_param(:sample_get, :server_url) %></span>
+    </p>
+	<% end %>
+  	<% unless value_for_plugin_param(:sample_get, :account_id).nil? %>
+    <p class="plugin_param" id="account_id">
+      <span class="label">Account ID:</span>
+      <span class="value"><%= value_for_plugin_param(:sample_get, :account_id) %></span>
+	</p>
+	<% end %>
+  </div>
+<% end %>  
+  
+<% if @tag_configuration.has_plugin? sample_post_plugin %>
+  <p class="plugin_name" id="plugin-<%= sample_post_plugin.id %>">
+    Sample HTTP POST plugin <br />  	
+	<small>Sends information to a server by posting a form into a hidden iframe.</small>
+  </p>
+
+  <div id="configure_plugin_<%= sample_post_plugin.id %>">
+    <% unless value_for_plugin_param(:sample_post, :server_url).nil? %>
+	<p>
+      <span class="label">Server URL:</span>
+      <span class="value"><%= value_for_plugin_param(:sample_post, :server_url) %></span>
+    </p>
+	<% end %>
+    <% unless value_for_plugin_param(:sample_post, :account).nil? %>
+    <p>
+      <span class="label">Account ID:</span>
+      <span class="value"><%= value_for_plugin_param(:sample_post, :account) %></span>
+    </p>
+	<% end %>
+  </div>
+<% end %>
+
+<% unless @tag_configuration.has_transport_plugins? %>
+  <p>None</p>
+<% end %>
+  
+</fieldset>
+
+  <hr />
+
+<fieldset id="libraries">
+
+<h2>Third party library</h2>
+
+<% if @tag_configuration.has_plugin? jquery_plugin %>
+  <p class="plugin_name" id="plugin-<%= jquery_plugin.id %>">
+  	jQuery library<br />
+	<small>
+      <%= link_to 'jQuery', 'http://jquery.com/' %> is a required dependency for the
+	  jsHub code. The minimum supported version of jQuery is 1.2, we currently include v1.3.2 in
+	  the jsHub tag. jQuery adds 19Kb to the file when it is served gzipped.
+	</small>
+  </p>
+<% end %>
+
+<% unless @tag_configuration.has_plugin? jquery_plugin %>
+  <p>
+  	None required. Please note that you must have <%= link_to 'jQuery', 'http://jquery.com/' %>
+	on the page for the jsHub tag to function.
+   </p>
+<% end %>
+
+</fieldset>
+
+  <hr />
+  
+<% if !@tag_configuration.comments.empty? %>
+<fieldset id="extra">
+
+  <h2>Comments</h2>
+  <pre id="comments"><%= @tag_configuration.comments %></pre>
+
+</fieldset>
+
+  <hr />
+
+<% end %>
+  
+<% if @tag_configuration.new_record? %>
+    <div class="button edit"><%= link_to 'Edit configuration', edit_new_tag_configuration_path %></div>
+<% else %>
+
+  <div class="yui-g actions">
+    <div class="yui-u first">
+      <div class="button edit"><%= link_to 'Edit configuration', edit_tag_configuration_path(@tag_configuration) %></div>
+    </div>
+    <div class="yui-u">
+      <div class="button delete"><%= link_to 'Delete', @tag_configuration, :confirm => 'Are you sure?', :method => :delete %></div>
+    </div>
+  </div>
+  
+<% end %>
+

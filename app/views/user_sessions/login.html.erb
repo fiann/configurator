@@ -1,0 +1,24 @@
+
+<h1>Log in</h1>
+
+<% form_for @user_session, :url => login_path do |f| %>
+<fieldset>
+  <%= hidden_field_tag :return_to, params[:return_to] %>
+  <p>
+    <%= f.label :email, "Email address" %>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :remember_me %>
+  	<%= f.check_box :remember_me %>
+  </p>
+  <p>
+  	<label>&nbsp;</label>
+    <button type="submit" name="commit" id="login_submit" class="login">Log in</button>
+  </p>
+</fieldset>
+<% end %>

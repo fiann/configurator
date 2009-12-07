@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>jsHub Tag Configurator</title>
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <%= stylesheet_link_tag :yui3 %>
+
+    <%= javascript_include_tag :configurator %>
+    <%= stylesheet_link_tag :configurator %>
+
+
+  </head>
+  <body class="jshub configurator yui-cssreset yui-cssfonts yui-cssgrids yui-cssbase">
+  
+  <div class="yui-d3f page homepage <%= controller.action_name %>">
+  	
+    <%= render :partial => "skin/header" %>
+    
+	<div class="yui-g content"><!-- Full width of container -->
+      <div class="col1">
+
+      <% if flash[:notice] %>
+        <div id="flash" class="notice" style="display: block">
+          <strong><%= flash[:notice] %></strong>
+          <% flash[:notice] = nil %>
+        </div>
+      <% end %>
+
+      <%= yield :layout %>
+
+      </div><!-- col1 -->
+	</div><!-- content -->
+	
+    <%= render :partial => "skin/footer" %>
+  </div><!-- page -->
+        
+  </body>
+</html>

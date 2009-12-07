@@ -1,0 +1,11 @@
+# Fixtures for parameters to tag_configuration_plugin
+
+one_sample_get_server:
+  tag_configuration_plugin: one_sample_get
+  param_name: server_url
+  param_value: http://www.jshub.org
+  
+one_sample_get_account:
+  tag_configuration_plugin: one_sample_get
+  param_name: account_id
+  param_value: 123456  

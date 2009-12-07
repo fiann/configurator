@@ -1,0 +1,37 @@
+  <div class="yui-g top">
+    <div class="details">
+      <div class="button download">
+        <%= link_to "Download Tag", generate_debug_tag_configuration_path,
+              :title => 'Download debug version of tag' %>
+      </div>
+
+      <% if @tag_configuration.new_record? %>
+      <p>
+        <%= link_to "Download debug version", generate_debug_tag_configuration_path %>
+      </p>
+	  <p>&nbsp;</p>
+	  <p>
+	  	If you <%= link_to "create an account", register_path %> or <%= link_to "sign in", login_path %>,
+		then you can save this configuration for future changes. 
+	  </p>
+	  <p>
+	  	Saved configurations have a full revision history, so you can see what has been 
+		changed with each version that was saved.
+	  </p>
+      <% else %>
+      <p>
+        <span class="label">Current version:</span>
+        <strong><%= @tag_configuration.current_revision_number %></strong>
+      </p>
+      <p>
+        <span class="label">Last revised:</span>
+        <strong><%= @tag_configuration.updated_at.to_date.to_s(:short) %></strong>
+        (<%= time_ago_in_words(@tag_configuration.updated_at).gsub('less than ', '') %> ago)
+      </p>
+      <p>
+        <%= link_to 'View history', tag_configuration_revisions_path(:tag_configuration_id => @tag_configuration.id) %> | 
+        <%= link_to "Download debug version", generate_debug_tag_configuration_path %>
+      </p>
+      <% end %>
+    </div>
+  </div>

@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+two_one:
+  tag_configuration: two
+  revision_number: 1
+  user: user1
+  sha1_debug: 123456789
+  sha1_production: 987654321
+  
+two_two:
+  tag_configuration: two
+  revision_number: 2
+  user: user1
+  sha1_debug: 234567890
+  sha1_production: 098765432
+  

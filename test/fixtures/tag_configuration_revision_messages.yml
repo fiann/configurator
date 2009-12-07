@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+two_one_one:
+  tag_configuration_revision: two_one
+  position: 1
+  message: Created
+
+two_two_one:
+  tag_configuration_revision: two_two
+  position: 1
+  message: Microformat data capture plugin added
+  
+two_two_two:
+  tag_configuration_revision: two_two
+  position: 2
+  message: jsHub plugin parameter updated, server_url=http://jshub.org/ changed to server_url=http://www.jshub.org/ 

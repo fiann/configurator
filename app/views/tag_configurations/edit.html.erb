@@ -1,0 +1,16 @@
+
+<% form_for(@tag_configuration) do |f| %>
+
+<h1>Edit a configuration</h1>
+  <%= render :partial => 'form' , :locals => { :f => f } %>
+  
+  <div class="yui-g actions big">
+    <div class="yui-u first">
+      <%# f.submit "Save changes" %>
+      <button type="submit" name="commit" id="tag_configuration_submit" class="save_changes">Save changes</button>
+    </div>
+    <div class="yui-u">
+      <div class="button cancel-large"><%= link_to 'Back', @tag_configuration %></div>
+    </div>
+  </div>
+<% end %>

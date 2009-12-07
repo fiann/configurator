@@ -1,0 +1,16 @@
+# Note the extra ':' prefixes so vars can be accessed like keys
+# e.g. APP_CONFIG[:test_run][:vendor][:site]
+# ref: http://blog.innovativethought.net/2009/01/02/making-configuration-files-with-yaml-revised/
+development: &non_production_settings
+      
+test:
+  <<: *non_production_settings
+
+production:
+  <<: *non_production_settings
+
+passenger:
+  <<: *non_production_settings
+  
+gromit:
+  <<: *non_production_settings

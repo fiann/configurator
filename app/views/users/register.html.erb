@@ -1,0 +1,13 @@
+<h1>Create your account</h1>
+
+<% form_for @user, :url => register_path do |f| %>
+  <%= f.error_messages %>
+  <br />
+  <fieldset>
+    <%= render :partial => "form", :object => f %>
+    <p>
+      <label>&nbsp;</label>
+      <button type="submit" id="register_submit" class="create_account">Register</button>
+    </p>
+  </fieldset>
+<% end %>

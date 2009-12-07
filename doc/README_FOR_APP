@@ -1,0 +1,47 @@
+== Akita on Rails
+
+This is the reference aplication for unit and functional testing the jsHub javascipt library.
+
+It also requires the prescence of a link:https://www.etl2dot0.com/code/etl2/wiki/BlackHoleDataCaptureServer and a Java SDK.
+
+== Getting Started
+
+1. Start the web server: <tt>script/server</tt> (run with --help for options)
+2. Go to http://localhost:3000/ and get the "jsHub -- Welcome to the jsHub project" page
+
+== Deployment
+
+Deployment of the application requires the Capistrano gem to be installed on the client and knowledge if the <tt>dev</tt> user account password on the developer server (or SSH keys to be in place).
+
+Additional tasks for application specific actions have 
+
+1. Run <tt>cap deploy</tt> (run cap -T for a list of all tasks, and cap -e taskname for extending information on a task)
+2. Enter the password when prompted.
+3. Go to http://gromit/akita-on-rails/ and get the "jsHub -- Welcome to the jsHub project" page
+
+== Description of additional Contents
+
+Below are descriptions for the additional directories and resources used by this application.
+
+app/views/javascript_unit_test
+  Holds the html files containing javascript unit test cases to run in a browser (using YUI Test).
+
+config/deploy.rb
+  Configuration file containing Capistrano tasks for deploying the application to Gromit.
+
+dist
+  Contains the rake generated js files for testing. These are regenerated anytime files in the <tt>src</tt> directory are edited.
+
+doc
+  This directory is where your application documentation will be stored when generated
+  using <tt>rake doc:app</tt>
+
+lib/js.jar
+  Java Rhino Javascript runtime for use by JSLint.
+
+lib/jslint
+  Files for running and configuring JSLint.
+
+src
+  Javascript src files.
+

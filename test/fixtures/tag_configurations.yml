@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Config one
+  comments: jshub.org
+  jshub_version: 0.1test
+  user: user1
+
+two:
+  name: Config two
+  comments: site two
+  jshub_version: 0.1test
+  user: user1

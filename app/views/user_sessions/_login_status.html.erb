@@ -1,0 +1,22 @@
+<div class="login">
+<% if current_user_session == nil %>
+  <% form_tag( login_path, :id => 'login_form' ) do %>
+  <div>
+    <%= hidden_field_tag "return_to", request.request_uri %>
+    <span class="login-state">Welcome.</span>
+    <span class="message">Please <%= link_to("create an account", {:controller => 'users', :action => "register"}) %> 
+    or <%= link_to_function 'sign in', "$('#login_form').submit()", :href => login_path %> to save your settings.</span>
+  </div>
+  <% end %>
+<% else %>
+  <% form_tag( logout_path, :id => 'logout_form' ) do %>
+  <div>
+    <%= hidden_field_tag "return_to", request.request_uri %>
+    <span class="login-state">Logged in as:</span>
+    <span class="username"><%= current_user.username %></span>
+    | <span class="account"><%= link_to 'Account', account_path %></span>
+    | <%= link_to_function 'Log out', "$('#logout_form').submit()", :href => logout_path %>
+  </div>
+  <% end %>
+<% end %>
+</div>

@@ -1,0 +1,24 @@
+    <div class="yui-g footer">
+      <p class="legal">
+        <strong>jsHub</strong> | &copy; 2009 jsHub.org - 
+		see <a href="http://jshub.org/legal/">Terms and conditions</a> for full details. 
+        <span class="scm">(<%= render :partial => 'shared/version' %>)</span>        
+      </p>
+    </div>
+
+<% if RAILS_ENV == "jshub" %>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8152756-5");
+pageTracker._trackPageview();
+<% if request.headers['REMOTE_USER'] %>
+// user segmentation
+pageTracker._setVar("<%= request.headers['REMOTE_USER'] %>");
+<% end %>
+} catch(err) {}</script>
+<% end %>
+
