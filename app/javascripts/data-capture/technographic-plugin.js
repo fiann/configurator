@@ -18,8 +18,6 @@
     name: 'Technographic Plugin',
     id: 'technographic-plugin',
     version: 0.1,
-    author: 'Liam Clancy',
-    email: 'liamc@jshub.org',
     vendor: 'jsHub.org',
     type: 'data-capture'
   };
@@ -45,7 +43,7 @@
     jsHub.trigger("technographic-parse-start", event);
 
     // extract hPage from html dom
-    var $ = jsHub.safe('$'), document = jsHub.safe('document'), data = event.data, found = {};
+    var document = jsHub.safe('document'), data = event.data, found = {};
     
     /*
      * collect technographic environment data, e.g. screen size, browser plugins, 

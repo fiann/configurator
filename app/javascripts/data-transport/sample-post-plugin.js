@@ -25,9 +25,7 @@
   var metadata = {
     name: 'Sample HTTP POST transport plugin',
     version: 0.1,
-    author: "Fiann O'Hagan",
-    email: 'fiann.ohagan@jshub.org',
-    vendor: 'jsHub'
+    vendor: 'jsHub.org'
   },  
   
   /**
@@ -50,14 +48,14 @@
      * Note that the field <code>account_id</code> in the string is replaced
      * when the tag is generated.
      */
-    var account = "<%= account_id %>";
+    var account = "1234";
     
     /**
      * URL to dispatch to the server
      * Note that the field <code>server_url</code> in the string is replaced
      * when the tag is generated.
      */
-    var url = "<%= server_url %>";
+    var url = "test.causata.com";
 
     /**
      * Append account ID if supplied
@@ -78,15 +76,17 @@
       sender: metadata.name + " v" + metadata.version
     };
     
-	// Copy all readable data into the output data
-	for (field in event.data) {
+	  // Copy all readable data into the output data
+	  for (field in event.data) {
       if ("string" === typeof event.data[field] || "number" === typeof event.data[field]) {
 	  	data[field] = event.data[field];
       }
     }
+
+    var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
 	
     // dispatch via API function
-    jsHub.dispatchViaForm("POST", url, data);
+    jsHub.dispatchViaForm("POST", protocol + url, data);
     jsHub.logger.groupEnd();
   };
   

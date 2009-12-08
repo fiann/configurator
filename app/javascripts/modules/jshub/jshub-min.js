@@ -1,0 +1,1 @@
+"use strict";YUI.add("jshub",function(a){jsHub.bind("domready","init",function(){jsHub.trigger("data-capture-start");jsHub.trigger("page-view");jsHub.trigger("data-capture-complete");});},"2.0.0",{requires:["yui","hub","logger","image-transport","form-transport","plugins","domready"],after:["yui"]});

@@ -1,0 +1,1 @@
+"use strict";YUI.add("microformats-capture",function(a){},"2.0.0",{requires:["microformats","hauthentication-capture","hpage-capture","hproduct-capture","hpurchase-capture"],after:["microformats"]});

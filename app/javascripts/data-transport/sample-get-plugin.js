@@ -21,9 +21,7 @@
   	id: 'sample-get-plugin',
     name: 'Sample HTTP GET transport plugin',
     version: 0.1,
-    author: "Fiann O'Hagan",
-    email: 'fiann.ohagan@jshub.org',
-    vendor: 'jsHub'
+    vendor: 'jsHub.org'
   },  
   
   /**
@@ -46,14 +44,14 @@
      * Note that the field <code>account_id</code> in the string is replaced
      * when the tag is generated.
      */
-    var account = "<%= account_id %>";
+    var account = "1234";
     
     /**
      * URL to dispatch to the server
      * Note that the field <code>server_url</code> in the string is replaced
      * when the tag is generated.
      */
-    var url = "<%= server_url %>";
+    var url = "test.causata.com";
 
     /**
      * Append account ID if supplied
@@ -75,8 +73,10 @@
       pagename: event.data.name || event.data.url || "not defined"
     };
 
+    var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
+
     // dispatch via API function
-    jsHub.dispatchViaImage(url, data);
+    jsHub.dispatchViaImage(protocol + url, data);
     jsHub.logger.groupEnd();
   };
   
