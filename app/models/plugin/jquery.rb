@@ -4,8 +4,8 @@ class Plugin::Jquery < Plugin
     "jQuery"
   end
   
-  def js_files
-    ['lib/jquery-1.3.2.min.js']
+  def modules
+    [ TagModule.new('modules/jquery/jquery.js', :library) ]
   end
   
   def plugin_type

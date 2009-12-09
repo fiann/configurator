@@ -8,7 +8,8 @@ class PluginTest < ActiveSupport::TestCase
   
   test "Sample GET plugin JS files" do
     plugin = Plugin::SampleGet.new
-    assert_equal ['data-transport/sample-get-plugin.js'], plugin.js_files
+    expected = [ TagModule.new('data-transport/sample-get-plugin.js', :data_transport) ]
+    assert_equal expected, plugin.modules
   end
   
   test "database is populated with singleton instances" do

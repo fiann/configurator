@@ -4,8 +4,8 @@ class Plugin::GoogleAnalyticsMarkup < Plugin
     "Google Analytics markup"
   end
   
-  def js_files
-    ['data-capture/google-analytics-markup-plugin.js']
+  def modules
+    [ TagModule.new('data-capture/google-analytics-markup-plugin.js', :data_capture) ]
   end
   
   def plugin_type

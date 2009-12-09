@@ -4,8 +4,8 @@ class Plugin::SampleGet < Plugin
     "Sample GET plugin"
   end
   
-  def js_files
-    ['data-transport/sample-get-plugin.js']
+  def modules
+    [ TagModule.new('data-transport/sample-get-plugin.js', :data_transport) ]
   end
   
   def plugin_type

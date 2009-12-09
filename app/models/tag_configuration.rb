@@ -112,6 +112,16 @@ class TagConfiguration < ActiveRecord::Base
     types.include? :data_transport
   end
   
+  # Collect the JS files (including dependencies) required for each plugin
+  # as an array of paths
+  def files
+    modules = (changed?) ? tag_configuration_plugins.collect {|p| p.plugin.modules} : 
+      plugins.collect {|p| p.modules}
+    modules.flatten!
+    modules.sort!
+    modules.collect { |m| m.src }
+  end
+  
   def current_revision_number
     latest ||= TagConfigurationRevision.maximum(:revision_number, 
       :conditions => { :tag_configuration_id => self.id }) || 0

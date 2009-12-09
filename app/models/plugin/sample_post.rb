@@ -4,10 +4,10 @@ class Plugin::SamplePost < Plugin
     "Sample POST plugin"
   end
   
-  def js_files
-    ['data-transport/sample-post-plugin.js']
+  def modules
+    [ TagModule.new('data-transport/sample-post-plugin.js', :data_transport) ]
   end
-  
+
   def plugin_type
     :data_transport
   end

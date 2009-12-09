@@ -1,9 +1,13 @@
 class Plugin::Microformat < Plugin
-  def js_files
-    ['data-capture/hAuthentication-plugin.js', 
-       'data-capture/hPage-plugin.js', 
-       'data-capture/hProduct-plugin.js', 
-       'data-capture/hPurchase-plugin.js']
+
+  def modules
+    [
+      TagModule.new('modules/microformats/hauthentication-capture.js', :data_capture),
+      TagModule.new('modules/microformats/hpage-capture.js', :data_capture),
+      TagModule.new('modules/microformats/hproduct-capture.js', :data_capture),
+      TagModule.new('modules/microformats/hpurchase-capture.js', :data_capture),
+      TagModule.new('modules/microformats/microformats.js', :library)
+    ]
   end
   
   def plugin_type

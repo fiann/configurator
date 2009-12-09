@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class TagConfigurationTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
   
   test "default plugins can be added to new object" do
     default_plugins = [Plugin::Microformat.instance, Plugin::SampleGet.instance, Plugin::Jquery.instance]
@@ -12,6 +8,25 @@ class TagConfigurationTest < ActiveSupport::TestCase
     assert_equal [], config.plugins
     config.add_default_plugins!
     assert_equal default_plugins, config.plugins
+  end
+  
+  test "plugin scripts are retrieved correctly" do
+    default_scripts = [
+      # from jquery plugin - comes first even though plugin specified last
+      'modules/jquery/jquery.js',
+      # from microformats plugin - NB libraries are first
+      'modules/microformats/microformats.js',
+      'modules/microformats/hauthentication-capture.js', 
+      'modules/microformats/hpage-capture.js', 
+      'modules/microformats/hproduct-capture.js', 
+      'modules/microformats/hpurchase-capture.js',
+      # from sample get plugin
+      'data-transport/sample-get-plugin.js'
+    ]
+    config = TagConfiguration.new
+    assert_equal [], config.files
+    config.add_default_plugins!
+    assert_equal default_scripts, config.files
   end
   
   test "plugins are present in fixture data" do
