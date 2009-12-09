@@ -1,27 +1,11 @@
-<%= render :file => "#{src_folder}/HEADER" %>
+<%= render :file => "#{src_folder}/modules/HEADER.js" %>
 
 /*jslint strict: true */
 "use strict";
 
-(function() {
-  var jsHub = this.js
-  var tag_data = {
-    Homepage: "http://www.jshub.org/",
-    Version: "<%=j @tag_configuration.jshub_version %>",
-    GeneratedBy: "<%=j url_for(:controller => :tag_configurations, :only_path => false) %>",
-    Configuration: "<%=j @tag_configuration.name %> (<%= revision_string %>, debug)"
-  };
-  this.jsHub = this.jsHub || {};
-  for (var field in tag_data) {
-  	this.jsHub[field] = tag_data[field];
-  }
-})();
-
 <%= generate_content_for_plugin jquery_plugin %>
 
-<%= render :file => "#{src_folder}/hub.js" %>
-
-<%= render :file => "#{src_folder}/api.js" %>
+<%= render :file => "#{src_folder}/modules/hub/hub-debug.js" %>
 
 /*
  * Data Capture Plug-ins

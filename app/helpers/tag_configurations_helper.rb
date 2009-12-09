@@ -54,8 +54,8 @@ module TagConfigurationsHelper
   def generate_content_for_plugin(plugin)
     return "" unless @tag_configuration.plugins.include? plugin
     content = ""
-    for src_file in plugin.modules
-      content += File.read("#{src_folder}/#{src_file}") + "\n"
+    for tag_module in plugin.modules
+      content += File.read("#{src_folder}/#{tag_module.src}") + "\n"
     end
     @tag_configuration.tag_configuration_plugins.each do |p|
       next unless p.plugin.id == plugin.id
