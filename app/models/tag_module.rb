@@ -1,6 +1,6 @@
 class TagModule
   
-  attr_accessor :src, :type
+  attr_accessor :module_name, :submodule_name, :type
   
   LIBRARY_PRECEDENCE = {
     :core => 0,
@@ -10,19 +10,25 @@ class TagModule
   }
   
   def initialize(src, type)
-    @src = src
+    @module_name, @submodule_name = src.split('/')
     @type = type
   end
   
   def ==(other)
-    src == other.src && type == other.type
+    module_name == other.module_name && 
+      submodule_name == other.submodule_name && 
+      type == other.type
   end
   
   def <=>(other)
-    if LIBRARY_PRECEDENCE[self.type] == LIBRARY_PRECEDENCE[other.type]
-      return self.src <=> other.src
+    if LIBRARY_PRECEDENCE[type] == LIBRARY_PRECEDENCE[other.type]
+      if module_name != other.module_name
+        return module_name <=> other.module_name
+      else
+        return submodule_name <=> other.submodule_name
+      end
     else
-      return LIBRARY_PRECEDENCE[self.type] - LIBRARY_PRECEDENCE[other.type]
+      return LIBRARY_PRECEDENCE[type] - LIBRARY_PRECEDENCE[other.type]
     end
   end
 end

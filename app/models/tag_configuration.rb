@@ -119,8 +119,20 @@ class TagConfiguration < ActiveRecord::Base
       plugins.collect {|p| p.modules}
     modules.flatten!
     modules.sort!
-    modules.collect { |m| m.src }
+    modules.collect { |m| "modules/#{m.module_name}/#{m.submodule_name}-debug.js" }
   end
+  
+  # Collect the configuration required for the plugins that are installed
+  def configuration
+    config = {}
+    tag_configuration_plugins.each do |p|
+      p.plugin.modules.each do |m|
+        config[m.submodule_name] = p.parameters;
+      end
+    end
+    config.to_json
+  end
+  
   
   def current_revision_number
     latest ||= TagConfigurationRevision.maximum(:revision_number, 

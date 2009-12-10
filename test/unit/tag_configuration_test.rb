@@ -13,20 +13,42 @@ class TagConfigurationTest < ActiveSupport::TestCase
   test "plugin scripts are retrieved correctly" do
     default_scripts = [
       # from jquery plugin - comes first even though plugin specified last
-      'modules/jquery/jquery.js',
+      'modules/jquery/jquery-debug.js',
       # from microformats plugin - NB libraries are first
-      'modules/microformats/microformats.js',
-      'modules/microformats/hauthentication-capture.js', 
-      'modules/microformats/hpage-capture.js', 
-      'modules/microformats/hproduct-capture.js', 
-      'modules/microformats/hpurchase-capture.js',
+      'modules/microformats/microformats-debug.js',
+      'modules/microformats/hauthentication-capture-debug.js', 
+      'modules/microformats/hpage-capture-debug.js', 
+      'modules/microformats/hproduct-capture-debug.js', 
+      'modules/microformats/hpurchase-capture-debug.js',
       # from sample get plugin
-      'data-transport/sample-get-plugin.js'
+      'modules/data-transport/sample-get-plugin-debug.js'
     ]
     config = TagConfiguration.new
     assert_equal [], config.files
     config.add_default_plugins!
     assert_equal default_scripts, config.files
+  end
+  
+  # the plugin configuration is exported in the page
+  # all the YUI module names must be listed, otherwise
+  # the module will never be initialized in the page
+  test "plugin configuration is generated correctly" do
+    config = TagConfiguration.new
+    mf = Plugin::Microformat.instance
+    get = Plugin::SampleGet.instance
+    config.plugin_config = {
+      mf.id.to_s => { "include" => "true" }, 
+      get.id.to_s => { "include"=>"true", "server_url"=>"http://www.jshub.org/" }
+    }
+    exp_config = {
+      "hauthentication-capture" => {},
+      "hpage-capture" => {},
+      "hproduct-capture" => {},
+      "hpurchase-capture" => {},
+      "microformats" => {},
+      "sample-get-plugin" => { "server_url"=>"http://www.jshub.org/" }
+    }
+    assert_equal exp_config.to_json, config.configuration
   end
   
   test "plugins are present in fixture data" do

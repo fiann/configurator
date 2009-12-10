@@ -5,7 +5,7 @@ class Plugin::SampleGet < Plugin
   end
   
   def modules
-    [ TagModule.new('data-transport/sample-get-plugin.js', :data_transport) ]
+    [ TagModule.new('data-transport/sample-get-plugin', :data_transport) ]
   end
   
   def plugin_type

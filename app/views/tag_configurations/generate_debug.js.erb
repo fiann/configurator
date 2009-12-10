@@ -1,8 +1,5 @@
 <%= render :file => "#{src_folder}/modules/HEADER.js" %>
 
-/*jslint strict: true */
-"use strict";
-
 <%= generate_content_for_plugin jquery_plugin %>
 
 <%= render :file => "#{src_folder}/modules/hub/hub-debug.js" %>
@@ -25,3 +22,10 @@
 <%= generate_content_for_plugin sample_get_plugin %>
 
 <%= generate_content_for_plugin sample_post_plugin %>
+
+YUI().use('jshub', function(Y) {
+
+  // Configuration for Causata transport plugin
+  jsHub.configure(<%= @tag_configuration.configuration %>);
+
+});
