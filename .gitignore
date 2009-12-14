@@ -3,6 +3,7 @@
 log/*.log
 tmp/
 doc/api
+test/reports
 
 # Ignore the generated app files
 doc/app
