@@ -7,6 +7,10 @@
  */
 /*--------------------------------------------------------------------------*/
 
+// JSLint options
+/*global YUI, jsHub */
+/*jslint nomen: false, white: false, bitwise: false */
+
 "use strict";
 
   // Mixpanel original internal api for encoding data
@@ -211,7 +215,7 @@
       return utftext;
   };
 
-(function() {
+YUI.add("samples-mixpanel", function (Y) {
 
   /**
    * Metadata about this plug-in for use by UI tools and the Hub
@@ -303,10 +307,14 @@
   /*
    * Bind the plugin to the Hub so as to run when events we are interested in occur
    */
-  for ( i = 0; i < boundEvents.length; i++ ) {
+  for (var i = 0; i < boundEvents.length; i++ ) {
     jsHub.bind(boundEvents[i], metadata.id, send);
   }
   
   // lifecycle notification
   jsHub.trigger("plugin-initialization-complete", metadata);
-})();
+  Y.log('jshub module loaded', 'info', 'Mixpanel sample plugin');
+}, "2.0.0", {
+  requires: ["yui", "hub", "logger"], 
+  after: ["yui"]
+});

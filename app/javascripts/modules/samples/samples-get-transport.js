@@ -1,47 +1,44 @@
 /** 
  * A sample plugin to capture jsHub events and send them to a server via a 
- * HTTP POST form request.
+ * single pixel gif image.
  * 
- * Form POST requests are an alternative to the more traditional single pixel
- * image request. POST is not subject to the 2k data limit imposed by the 
- * browser on a GET request. It is also not subject to the strict same origin
- * policy imposed on XmlHttpRequest (AJAX) requests.
- * 
- * You can use this as a starting point to customize the data to generate 
- * data in the format expected by your server.
+ * You can use this as a starting point to customize the data to generate a
+ * URL in the format expected by your server.
  *
  * @module data-transport
- * @class sample-post-plugin
+ * @class sample-get-plugin
  */
 /*--------------------------------------------------------------------------*/
 
+// JSLint options
+/*global YUI, jsHub */
 "use strict";
 
-(function() {
+YUI.add("samples-get-transport", function (Y) {
 
   /**
    * Metadata about this plug-in for use by UI tools and the Hub
    */
   var metadata = {
-    name: 'Sample HTTP POST transport plugin',
+  	id: 'sample-get-plugin',
+    name: 'Sample HTTP GET transport plugin',
     version: 0.1,
     vendor: 'jsHub.org'
   },  
   
   /**
-   * The events that will be captured and sent to the receiving servers
+   * The events that will be captured and sent to the server
    */
   boundEvents = ['page-view', 'authentication', 'checkout'],  
   
   /**
    * Event driven anonymous function bound to 'page-view'
-   * @method transport
+   * @method send
    * @param event {Object} the event to serialize and send to the server
    * @property metadata
    */
-  send = function(event) {
+  send = function (event) {
   
-    jsHub.logger.group("Sample POST output: sending '%s' event", event.type);
     
     /**
      * Account ID for the client
@@ -60,11 +57,11 @@
     /**
      * Append account ID if supplied
      */
-    if(account !== ""){
-      url += url.substring(url.length-1, url.length) == "/" ? "" : "/";
+    if (account !== "") {
+      url += url.substring(url.length - 1, url.length) === "/" ? "" : "/";
       url += "account/" + account;
-    }    
-
+    }
+    
 	/**
 	 * Each field in this object is serialized as a name=value pair in the query
 	 * string of the URL that is created for the image request.
@@ -73,30 +70,25 @@
 	 * query string.
 	 */
     var data = {
-      sender: metadata.name + " v" + metadata.version
+      sender: metadata.name + " v" + metadata.version,
+      pagename: event.data.name || event.data.url || "not defined"
     };
-    
-	  // Copy all readable data into the output data
-	  for (field in event.data) {
-      if ("string" === typeof event.data[field] || "number" === typeof event.data[field]) {
-	  	data[field] = event.data[field];
-      }
-    }
 
     var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
-	
+
     // dispatch via API function
-    jsHub.dispatchViaForm("POST", protocol + url, data);
-    jsHub.logger.groupEnd();
+    jsHub.dispatchViaImage(protocol + url, data);
   };
   
   /*
    * Bind the plugin to the Hub so as to run when events we are interested in occur
    */
-  for (i = 0; i < boundEvents.length; i++) {
-    jsHub.bind(boundEvents[i], metadata.id, send);
-  }
+  jsHub.bind("page-view", metadata.id, send);
   
   // lifecycle notification
   jsHub.trigger("plugin-initialization-complete", metadata);
-})();
+
+}, "2.0.0", {
+  requires: ["yui", "hub", "logger", "image-transport"], 
+  after: ["yui"]
+});

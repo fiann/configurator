@@ -10,9 +10,11 @@
  */
 /*--------------------------------------------------------------------------*/
 
+// JSLint options
+/*global YUI, jsHub */
 "use strict";
 
-(function() {
+YUI.add("samples-get-transport", function (Y) {
 
   /**
    * Metadata about this plug-in for use by UI tools and the Hub
@@ -35,7 +37,7 @@
    * @param event {Object} the event to serialize and send to the server
    * @property metadata
    */
-  send = function(event) {
+  send = function (event) {
   
     jsHub.logger.group("Sample get transport: sending '%s' event", event.type);
     
@@ -56,8 +58,8 @@
     /**
      * Append account ID if supplied
      */
-    if(account !== ""){
-      url += url.substring(url.length-1, url.length) == "/" ? "" : "/";
+    if (account !== "") {
+      url += url.substring(url.length - 1, url.length) === "/" ? "" : "/";
       url += "account/" + account;
     }
     
@@ -87,4 +89,8 @@
   
   // lifecycle notification
   jsHub.trigger("plugin-initialization-complete", metadata);
-})();
+
+}, "2.0.0", {
+  requires: ["yui", "hub", "logger", "image-transport"], 
+  after: ["yui"]
+});

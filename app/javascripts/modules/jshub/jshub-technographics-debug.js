@@ -5,11 +5,13 @@
  * @class technographic-plugin
  *//*--------------------------------------------------------------------------*/
 
+// JSLint options
+/*global YUI, jsHub */
 /*jslint strict: true */
 "use strict";
  
  
-(function() {
+YUI.add("jshub-technographics", function (Y) {
 
   /*
    * Metadata about this plug-in for use by UI tools and the Hub
@@ -49,34 +51,34 @@
      * collect technographic environment data, e.g. screen size, browser plugins, 
      * js version etc
      */ 
-	
-	// Page URL is the default for hPage.url
-	// Force a cast to string as document.location.href is not a string when
-	// returned by env.js / rhino
+    
+    // Page URL is the default for hPage.url
+    // Force a cast to string as document.location.href is not a string when
+    // returned by env.js / rhino
     found.url = document.location.href;
-	if (! data.url) {
-		data.url = found.url;
-		data['url-source'] = "window.location";
-	}
-	
-	// Page title is the default for hPage.title
+    if (!data.url) {
+      data.url = found.url;
+      data['url-source'] = "window.location";
+    }
+    
+    // Page title is the default for hPage.title
     found.title = document.title;
-	if (! data.title) {
-		data.title = found.title;
-		data['title-source'] = "document.title";
-	}
-	
-	// Document referrer is the default for hPage.referrer
+    if (!data.title) {
+      data.title = found.title;
+      data['title-source'] = "document.title";
+    }
+    
+    // Document referrer is the default for hPage.referrer
     found.referrer = document.referrer;
-	if (! data.referrer) {
-		data.referrer = found.referrer;
-		data['referrer-source'] = "document.referrer";
-	}
-	
+    if (!data.referrer) {
+      data.referrer = found.referrer;
+      data['referrer-source'] = "document.referrer";
+    }
+    
     // and send to output plugins
     jsHub.trigger("technographic-parse-complete", data);
-	
-	return data;
+
+    return data;
   };
   
   /*
@@ -90,4 +92,8 @@
    */
   jsHub.trigger("plugin-initialization-complete", metadata);
   
-})();
+  Y.log('jshub module loaded', 'info', 'jsHub technographics');
+}, "2.0.0", {
+  requires: ["yui", "hub", "logger"], 
+  after: ["yui"]
+});
