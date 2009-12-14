@@ -41,14 +41,16 @@ class TagConfigurationTest < ActiveSupport::TestCase
       get.id.to_s => { "include"=>"true", "server_url"=>"http://www.jshub.org/" }
     }
     exp_config = {
+      "microformats" => {},
       "hauthentication-capture" => {},
       "hpage-capture" => {},
       "hproduct-capture" => {},
       "hpurchase-capture" => {},
-      "microformats" => {},
       "samples-get-transport" => { "server_url"=>"http://www.jshub.org/" }
     }
-    assert_equal exp_config.to_json, config.configuration
+    # configuration is serialized as JSON, so load it into an object
+    act_config = YAML.load config.configuration
+    assert_equal exp_config, act_config
   end
   
   test "plugins are present in fixture data" do
