@@ -21,7 +21,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       'modules/microformats/hproduct-capture-debug.js', 
       'modules/microformats/hpurchase-capture-debug.js',
       # from sample get plugin
-      'modules/data-transport/sample-get-plugin-debug.js'
+      'modules/samples/samples-get-transport-debug.js'
     ]
     config = TagConfiguration.new
     assert_equal [], config.files
@@ -46,7 +46,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       "hproduct-capture" => {},
       "hpurchase-capture" => {},
       "microformats" => {},
-      "sample-get-plugin" => { "server_url"=>"http://www.jshub.org/" }
+      "samples-get-transport" => { "server_url"=>"http://www.jshub.org/" }
     }
     assert_equal exp_config.to_json, config.configuration
   end

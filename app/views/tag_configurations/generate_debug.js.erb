@@ -1,27 +1,6 @@
 <%= render :file => "#{src_folder}/modules/HEADER.js" %>
 
-<%= generate_content_for_plugin jquery_plugin %>
-
-<%= render :file => "#{src_folder}/modules/hub/hub-debug.js" %>
-
-/*
- * Data Capture Plug-ins
- *//*--------------------------------------------------------------------------*/
-
-<%= render :file => "#{src_folder}/data-capture/technographic-plugin.js" %>
-
-<%= generate_content_for_plugin mf_plugin %>
-
-<%= generate_content_for_plugin ga_markup_plugin %>
-
-
-/*
- * Data Transport Plug-ins
- *//*--------------------------------------------------------------------------*/
-
-<%= generate_content_for_plugin sample_get_plugin %>
-
-<%= generate_content_for_plugin sample_post_plugin %>
+<%= generate_content %>
 
 YUI().use('jshub', function(Y) {
 

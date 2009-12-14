@@ -51,17 +51,10 @@ module TagConfigurationsHelper
   end
   
   # Used to generate the tag file
-  def generate_content_for_plugin(plugin)
-    return "" unless @tag_configuration.plugins.include? plugin
+  def generate_content
     content = ""
-    for tag_module in plugin.modules
-      content += File.read("#{src_folder}/#{tag_module.src}") + "\n"
-    end
-    @tag_configuration.tag_configuration_plugins.each do |p|
-      next unless p.plugin.id == plugin.id
-      p.parameters.each do |key, value| 
-        content.gsub!("<%=\s#{key}\s%>", value)
-      end
+    for file in @tag_configuration.files
+      content += File.read("#{src_folder}/#{file}") + "\n"
     end
     content
   end

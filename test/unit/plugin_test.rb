@@ -8,7 +8,7 @@ class PluginTest < ActiveSupport::TestCase
   
   test "Sample GET plugin JS files" do
     plugin = Plugin::SampleGet.new
-    expected = [ TagModule.new('data-transport/sample-get-plugin.js', :data_transport) ]
+    expected = [ TagModule.new('samples/samples-get-transport', :data_transport) ]
     assert_equal expected, plugin.modules
   end
   
