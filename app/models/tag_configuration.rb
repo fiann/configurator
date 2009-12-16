@@ -126,9 +126,9 @@ class TagConfiguration < ActiveRecord::Base
   def configuration
     config = {}
     tag_configuration_plugins.each do |p|
-      p.plugin.modules.each do |m|
-        config[m.submodule_name] = p.parameters;
-      end
+      # the first submodule listed is the one which accepts the configuration
+      key = p.plugin.modules.first.submodule_name
+      config[key] = p.parameters;
     end
     config.to_json
   end
