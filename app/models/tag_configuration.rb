@@ -119,7 +119,7 @@ class TagConfiguration < ActiveRecord::Base
       plugins.collect {|p| p.modules}
     modules.flatten!
     modules.sort!
-    modules.collect { |m| "modules/#{m.module_name}/#{m.submodule_name}-debug.js" }
+    modules.collect { |m| m.name }
   end
   
   # Collect the configuration required for the plugins that are installed

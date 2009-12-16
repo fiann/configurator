@@ -1,6 +1,6 @@
 module TagConfigurationsHelper
   
-  SRC_FOLDER = "#{RAILS_ROOT}/app/javascripts"
+  SRC_FOLDER = "#{RAILS_ROOT}/app/javascripts/modules"
   
   def tag_versions
     TagConfiguration::VERSIONS
@@ -54,7 +54,7 @@ module TagConfigurationsHelper
   def generate_content
     content = ""
     for file in @tag_configuration.files
-      content += File.read("#{src_folder}/#{file}") + "\n"
+      content += File.read("#{src_folder}/#{file}-#{@tag_type}.js") + "\n"
     end
     content
   end

@@ -1,6 +1,6 @@
 class TagModule
   
-  attr_accessor :module_name, :submodule_name, :type
+  attr_reader :name, :module_name, :submodule_name, :type
   
   LIBRARY_PRECEDENCE = {
     :core => 0,
@@ -10,7 +10,8 @@ class TagModule
   }
   
   def initialize(src, type)
-    @module_name, @submodule_name = src.split('/')
+    @name = src
+    @module_name, @submodule_name = @name.split('/')
     @type = type
   end
   

@@ -13,15 +13,16 @@ class TagConfigurationTest < ActiveSupport::TestCase
   test "plugin scripts are retrieved correctly" do
     default_scripts = [
       # from jquery plugin - comes first even though plugin specified last
-      'modules/jquery/jquery-debug.js',
+      'jquery/jquery',
       # from microformats plugin - NB libraries are first
-      'modules/microformats/microformats-debug.js',
-      'modules/microformats/hauthentication-capture-debug.js', 
-      'modules/microformats/hpage-capture-debug.js', 
-      'modules/microformats/hproduct-capture-debug.js', 
-      'modules/microformats/hpurchase-capture-debug.js',
+      'microformats/microformats',
+      'microformats/microformats-api',
+      'microformats/hauthentication-capture', 
+      'microformats/hpage-capture', 
+      'microformats/hproduct-capture', 
+      'microformats/hpurchase-capture',
       # from sample get plugin
-      'modules/samples/samples-get-transport-debug.js'
+      'samples/samples-get-transport'
     ]
     config = TagConfiguration.new
     assert_equal [], config.files
@@ -30,8 +31,9 @@ class TagConfigurationTest < ActiveSupport::TestCase
   end
   
   # the plugin configuration is exported in the page
-  # all the YUI module names must be listed, otherwise
-  # the module will never be initialized in the page
+  # only the YUI module name that requires configuration is listed, 
+  # the other modules a will never be initialized in thre found via
+  # YUI dependencies
   test "plugin configuration is generated correctly" do
     config = TagConfiguration.new
     mf = Plugin::Microformat.instance
@@ -42,10 +44,6 @@ class TagConfigurationTest < ActiveSupport::TestCase
     }
     exp_config = {
       "microformats" => {},
-      "hauthentication-capture" => {},
-      "hpage-capture" => {},
-      "hproduct-capture" => {},
-      "hpurchase-capture" => {},
       "samples-get-transport" => { "server_url"=>"http://www.jshub.org/" }
     }
     # configuration is serialized as JSON, so load it into an object

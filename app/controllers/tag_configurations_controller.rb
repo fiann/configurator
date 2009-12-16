@@ -162,13 +162,17 @@ class TagConfigurationsController < ApplicationController
   # GET /tag_configurations/1/generate_debug
   def generate_debug
     response.headers['Content-Disposition'] = 'attachment; filename=jshub.js'
+    @tag_type = 'debug'
     render :content_type => 'text/javascript', :layout => false,
-      :template => 'tag_configurations/generate_debug.js.erb'
+      :template => 'tag_configurations/generate_tag.js.erb'
   end
 
   # GET /tag_configurations/1/generate_production
   def generate_production
-    render :content_type => 'text/javascript', :layout => false
+    response.headers['Content-Disposition'] = 'attachment; filename=jshub.js'
+    @tag_type = 'min'
+    render :content_type => 'text/javascript', :layout => false,
+      :template => 'tag_configurations/generate_tag.js.erb'
   end
   
   private
@@ -185,10 +189,12 @@ class TagConfigurationsController < ApplicationController
   def render_and_save_tag
     revision = @tag_configuration.revisions.last
     logger.debug "Configuration plugins: #{@tag_configuration.plugins.inspect}"
-    debug_code = render_to_string :template => 'tag_configurations/generate_debug.js.erb', :layout => false
+    @tag_type = 'debug'
+    debug_code = render_to_string :template => 'tag_configurations/generate_tag.js.erb', :layout => false
     revision.generated_code = debug_code
     revision.sha1_debug = Digest::SHA1.hexdigest(debug_code)
-    production_code = render_to_string :template => 'tag_configurations/generate_production.html.erb', :layout => false
+    @tag_type = 'debug'
+    production_code = render_to_string :template => 'tag_configurations/generate_tag.js.erb', :layout => false
     revision.sha1_production = Digest::SHA1.hexdigest(production_code)
     logger.debug "Saving revision hashes: #{revision.inspect}"
     revision.save!
