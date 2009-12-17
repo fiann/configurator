@@ -5,7 +5,9 @@ class Plugin::SamplePost < Plugin
   end
   
   def modules
-    [ TagModule.new('samples/samples-post-transport.js', :data_transport) ]
+    [ TagModule.new('samples/samples-post-transport', :data_transport),
+      TagModule.new('form-transport/form-transport', :core) 
+    ]
   end
 
   def plugin_type

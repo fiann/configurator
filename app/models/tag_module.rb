@@ -3,8 +3,8 @@ class TagModule
   attr_reader :name, :module_name, :submodule_name, :type
   
   LIBRARY_PRECEDENCE = {
-    :core => 0,
-    :library => 1,
+    :library => 0,
+    :core => 1,
     :data_capture => 2,
     :data_transport => 3
   }
