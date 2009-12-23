@@ -117,6 +117,7 @@ class TagConfiguration < ActiveRecord::Base
   def files
     modules = (changed?) ? tag_configuration_plugins.collect {|p| p.plugin.modules} : 
       plugins.collect {|p| p.modules}
+    modules << Plugin::JshubCore.instance.modules
     modules.flatten!
     modules.sort!
     modules.collect { |m| m.name }
