@@ -22,6 +22,10 @@ module TagConfigurationsHelper
     Plugin::SampleGet.instance
   end
   
+  def causata_plugin
+    Plugin::Causata.instance
+  end
+  
   def sample_post_plugin
     Plugin::SamplePost.instance
   end

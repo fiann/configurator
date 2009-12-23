@@ -10,22 +10,43 @@ class TagConfigurationTest < ActiveSupport::TestCase
     assert_equal default_plugins, config.plugins
   end
   
+  test "core files are present in configuration" do 
+    core_scripts = [
+      "debug/debug",
+      "domready/domready",
+      "hub/hub",
+      "jshub/jshub",
+      "logger/logger",
+      "jshub/jshub-technographics"
+    ]
+    config = TagConfiguration.new
+    assert_equal core_scripts, config.files
+    
+  end
+  
   test "plugin scripts are retrieved correctly" do
     default_scripts = [
+      # used by logger
+      "debug/debug",
       # from jquery plugin - comes first even though plugin specified last
       'jquery/jquery',
-      # from microformats plugin - NB libraries are first
-      'microformats/microformats',
+      # core files
+      "domready/domready",
+      "hub/hub",
+      "jshub/jshub",
+      "logger/logger",
+      # from microformats plugin - NB libraries are first, rollup is last
       'microformats/microformats-api',
+      "jshub/jshub-technographics",
       'microformats/hauthentication-capture', 
       'microformats/hpage-capture', 
       'microformats/hproduct-capture', 
       'microformats/hpurchase-capture',
+      'microformats/microformats',
       # from sample get plugin
       'samples/samples-get-transport'
     ]
     config = TagConfiguration.new
-    assert_equal [], config.files
     config.add_default_plugins!
     assert_equal default_scripts, config.files
   end

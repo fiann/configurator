@@ -369,7 +369,7 @@ div.page h1 {
 div.page h2 {
   margin: 0;
   margin-bottom: 5px;
-  color: #858689;
+  color: #404040;
   font-size: 138.5%; }
 div.page p.homepage {
   font-size: 138.5%; }
@@ -476,6 +476,9 @@ p.plugin_choice {
   .plugin_name small {
     font-weight: normal;
     font-size: 85%; }
+
+.sample {
+  color: #404040; }
 
 input.configuration_name {
   font-size: 182%;

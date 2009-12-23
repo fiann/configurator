@@ -15,7 +15,7 @@ class TagConfigurationCreationScenariosTest < ActionController::IntegrationTest
     click_link "Create a new configuration"
     fill_in "tag_configuration_name", :with => "test one"
     check "Page data HTML microformats"
-    uncheck "Sample HTTP GET data transport plugin"
+    uncheck "Sample HTTP GET plugin"
     click_button "Save"
     
     # Check the details are shown
@@ -40,7 +40,7 @@ class TagConfigurationCreationScenariosTest < ActionController::IntegrationTest
     fill_in "tag_configuration_name", :with => "test one"
     check "Page data HTML microformats"
     check "Google Analytics markup"
-    uncheck "Sample HTTP GET data transport plugin"
+    uncheck "Sample HTTP GET plugin"
     
     click_button "Save"
     
