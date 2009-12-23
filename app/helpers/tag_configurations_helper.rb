@@ -63,4 +63,9 @@ module TagConfigurationsHelper
     content
   end
   
+  # Get the configuration from the model
+  def configuration
+    @configuration ||= @tag_configuration.configuration
+  end
+  
 end

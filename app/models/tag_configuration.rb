@@ -131,7 +131,7 @@ class TagConfiguration < ActiveRecord::Base
       key = p.plugin.modules.first.submodule_name
       config[key] = p.parameters;
     end
-    config.to_json
+    config
   end
   
   

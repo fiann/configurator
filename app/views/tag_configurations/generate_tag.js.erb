@@ -5,6 +5,8 @@
 YUI().use('jshub', function(Y) {
 
   // Configuration for Causata transport plugin
-  jsHub.configure(<%= @tag_configuration.configuration %>);
+<% configuration.keys.each do |key| -%>
+  jsHub.configure("<%= j key %>", <%= configuration[key].to_json %>);
+<% end %>
 
 });
