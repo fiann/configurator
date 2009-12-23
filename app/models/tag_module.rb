@@ -3,10 +3,11 @@ class TagModule
   attr_reader :name, :module_name, :submodule_name, :type
   
   LIBRARY_PRECEDENCE = {
-    :library => 0,
-    :core => 1,
-    :data_capture => 2,
-    :data_transport => 3
+    :yui => 0,
+    :library => 1,
+    :core => 2,
+    :data_capture => 3,
+    :data_transport => 4
   }
   
   def initialize(src, type)
@@ -23,11 +24,7 @@ class TagModule
   
   def <=>(other)
     if LIBRARY_PRECEDENCE[type] == LIBRARY_PRECEDENCE[other.type]
-      if module_name != other.module_name
-        return module_name <=> other.module_name
-      else
-        return submodule_name <=> other.submodule_name
-      end
+      return 1
     else
       return LIBRARY_PRECEDENCE[type] - LIBRARY_PRECEDENCE[other.type]
     end

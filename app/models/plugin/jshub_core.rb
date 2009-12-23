@@ -2,6 +2,7 @@ class Plugin::JshubCore < Plugin
 
   def modules
     [
+      TagModule.new('yui/yui', :yui),
       TagModule.new('debug/debug', :library),
       TagModule.new('hub/hub', :core),
       TagModule.new('logger/logger', :core),
