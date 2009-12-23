@@ -55,15 +55,15 @@
   </p>
   <div id="configure_plugin_<%= causata_plugin.id %>">
     <p>
-      <%= label_tag label_for_plugin_param(:causata, :server_url), 
+      <%= label_tag label_for_plugin_param(:causata, :server), 
             'Server URL' %>
-      <%= text_field_tag label_for_plugin_param(:causata, :server_url), 
-            value_for_plugin_param(:causata, :server_url) %>
+      <%= text_field_tag label_for_plugin_param(:causata, :server), 
+            value_for_plugin_param(:causata, :server) %>
     </p>
     <p>
-      <%= label_tag label_for_plugin_param(:causata, :account_id), 'Account ID' %>
-      <%= text_field_tag label_for_plugin_param(:causata, :account_id), 
-            value_for_plugin_param(:causata, :account_id) %>
+      <%= label_tag label_for_plugin_param(:causata, :account), 'Account ID' %>
+      <%= text_field_tag label_for_plugin_param(:causata, :account), 
+            value_for_plugin_param(:causata, :account) %>
     </p>
   </div>
   
