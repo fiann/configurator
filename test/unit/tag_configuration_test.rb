@@ -70,9 +70,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       "microformats" => {},
       "samples-get-transport" => { "server_url"=>"http://www.jshub.org/" }
     }
-    # configuration is serialized as JSON, so load it into an object
-    act_config = YAML.load config.configuration
-    assert_equal exp_config, act_config
+    assert_equal exp_config, config.configuration
   end
   
   test "plugins are present in fixture data" do
