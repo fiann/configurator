@@ -12,11 +12,12 @@ class TagConfigurationTest < ActiveSupport::TestCase
   
   test "core files are present in configuration" do 
     core_scripts = [
+      "yui/yui",
       "debug/debug",
-      "domready/domready",
-      "hub/hub",
-      "jshub/jshub",
       "logger/logger",
+      "jshub/jshub",
+      "hub/hub",
+      "domready/domready",
       "jshub/jshub-technographics"
     ]
     config = TagConfiguration.new
@@ -26,23 +27,25 @@ class TagConfigurationTest < ActiveSupport::TestCase
   
   test "plugin scripts are retrieved correctly" do
     default_scripts = [
-      # used by logger
-      "debug/debug",
+      # module system base
+      "yui/yui",
       # from jquery plugin - comes first even though plugin specified last
       'jquery/jquery',
+      # used by logger
+      "debug/debug",
       # core files
-      "domready/domready",
+      "logger/logger",
       "hub/hub",
       "jshub/jshub",
-      "logger/logger",
+      "domready/domready",
       # from microformats plugin - NB libraries are first, rollup is last
       'microformats/microformats-api',
       "jshub/jshub-technographics",
-      'microformats/hauthentication-capture', 
+      'microformats/microformats',
       'microformats/hpage-capture', 
+      'microformats/hauthentication-capture', 
       'microformats/hproduct-capture', 
       'microformats/hpurchase-capture',
-      'microformats/microformats',
       # from sample get plugin
       'samples/samples-get-transport'
     ]
