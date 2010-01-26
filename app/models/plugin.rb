@@ -5,6 +5,8 @@ class Plugin < ActiveRecord::Base
   
   validates_uniqueness_of :type
   
+  SRC_FOLDER = "#{RAILS_ROOT}/app/javascripts/modules"
+
   def name
     /Plugin::(.+)/.match(self.class.name)[1]
   end

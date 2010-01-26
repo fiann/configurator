@@ -1,7 +1,5 @@
 module TagConfigurationsHelper
   
-  SRC_FOLDER = "#{RAILS_ROOT}/app/javascripts/modules"
-  
   def tag_versions
     TagConfiguration::VERSIONS
   end
@@ -43,7 +41,7 @@ module TagConfigurationsHelper
   end
   
   def src_folder
-    SRC_FOLDER
+    Plugin::SRC_FOLDER
   end
   
   def revision_string
