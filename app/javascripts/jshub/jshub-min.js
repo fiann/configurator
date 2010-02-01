@@ -1,0 +1,1 @@
+"use strict";(function(){jsHub.bind("domready","init",function(){jsHub.trigger("data-capture-start");jsHub.trigger("page-view");jsHub.trigger("data-capture-complete");});})();

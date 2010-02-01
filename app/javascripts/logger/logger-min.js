@@ -1,0 +1,1 @@
+"use strict";(function(){jsHub.logger=(function(){var e=9;if(e&&e>=1){return window.debug;}else{var c,a={},b=function(){},d=["log","debug","info","warn","error","assert","dir","dirxml","group","groupEnd","time","timeEnd","count","trace","profile","profileEnd"];for(c=0;c<d.length;++c){a[d[c]]=function(){return b;}(c);}return a;}})();})();
