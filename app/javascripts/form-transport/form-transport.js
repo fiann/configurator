@@ -98,6 +98,7 @@
             }
           }
         } else {
+//           jsHub.logger.error("This value cannot be converted for transport");
         }        
       });
 
@@ -128,6 +129,7 @@
         TODO: may need CollectGarbage(); see thread http://groups.google.com/group/orbited-users/browse_thread/thread/e337ac03d0c9f13f
       */
       if (msie) {
+//         jsHub.logger.log('IE specific branch to avoid navigational clicks');
         try {
           if ("ActiveXObject" in window) {
             doc = new ActiveXObject("htmlfile");
@@ -139,8 +141,10 @@
             form = doc.getElementById(form.id);
             iframe = doc.getElementById(iframe.id);
 
+//             jsHub.logger.log('IE ActiveXObject("htmlfile") created: %o', doc);
           }
         } catch (e) {
+//           jsHub.logger.error('IE ActiveXObject("htmlfile") error: %o', e.message);
         }
         
       } else {
@@ -150,9 +154,11 @@
       
       // check elements created sucessfully
       if (!form) {
+//         jsHub.logger.error('Form Transport form creation error');
       }
       // some older browsers do not return null for a failed iframe creation so check the nodeType
       if (!iframe || typeof (iframe.nodeType) === 'undefined') {
+//         jsHub.logger.error('Form Transport iframe creation error');
       }
 
       // store references

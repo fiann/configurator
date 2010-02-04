@@ -49,9 +49,12 @@
             + encodeURIComponent(name) + "=" + encodeURIComponent(value);
         };
 
+//         jsHub.logger.group("ImageTransport: dispatch(" + url + ") entered");
         
     // base url must be defined
         if (typeof url !== 'string' || url.length < 1) {
+//           jsHub.logger.error("Base url (" + url + ") was not defined correctly");
+//           jsHub.logger.groupEnd();
           return null;
         }
     
@@ -74,6 +77,8 @@
         var image = document.createElement("img");
         image.src = url;
 
+//         jsHub.logger.log("Dispatched: " + url);
+//         jsHub.logger.groupEnd();
         return image;
     
       };

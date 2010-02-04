@@ -44,6 +44,7 @@ YUI.add("samples-post-transport", function (Y) {
    */
   send = function (event) {
   
+//     jsHub.logger.group("Sample POST output: sending '%s' event", event.type);
     
     /**
      * Account ID for the client
@@ -89,6 +90,7 @@ YUI.add("samples-post-transport", function (Y) {
 	
     // dispatch via API function
     jsHub.dispatchViaForm("POST", protocol + url, data);
+//     jsHub.logger.groupEnd();
   };
   
   /*

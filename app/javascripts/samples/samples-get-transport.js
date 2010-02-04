@@ -39,6 +39,7 @@
    */
   send = function (event) {
   
+//     jsHub.logger.group("Sample get transport: sending '%s' event", event.type);
     
     /**
      * Account ID for the client
@@ -78,6 +79,7 @@
 
     // dispatch via API function
     jsHub.dispatchViaImage(protocol + url, data);
+//     jsHub.logger.groupEnd();
   };
   
   /*

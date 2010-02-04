@@ -44,6 +44,7 @@
      */
     transport = function (event) {
 
+//       jsHub.logger.group("Causata output: sending '%s' event", event.type);
 
       // cannot send message if server is not configured
       if (typeof config.server !== 'string') {
@@ -51,6 +52,7 @@
           message : "Server hostname not specified",
           source : metadata.id
         });
+//         jsHub.logger.groupEnd();
         return;
       }
 
@@ -82,6 +84,7 @@
 
       // dispatch via API function
       jsHub.dispatchViaForm("POST", protocol + config.server, outputData);
+//       jsHub.logger.groupEnd();
     },
 
     /**

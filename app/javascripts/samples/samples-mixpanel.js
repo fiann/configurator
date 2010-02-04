@@ -258,6 +258,8 @@
    */
   send = function(event) {
   
+//     jsHub.logger.group("Mixpanel get transport: sending '%s' event", event.type);
+//     jsHub.logger.debug("Event: %o", event);
     
     /**
      * Each field in this object is serialized as a name=value pair in the query
@@ -294,11 +296,14 @@
     }
 
     // encode merged data payload
+//     jsHub.logger.debug("Data to encode: %o", dispatch);    
     var encoded_data = mpmetrics.base64_encode(mpmetrics.json_encode(dispatch.data)); // Security by obscurity
     dispatch.data = encoded_data;
 
     // dispatch via API function
+//     jsHub.logger.debug("Dispatch data: %o", dispatch);
     jsHub.dispatchViaImage(url, dispatch);
+//     jsHub.logger.groupEnd();
   },
   
   /**

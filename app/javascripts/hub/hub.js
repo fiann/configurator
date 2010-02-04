@@ -132,11 +132,13 @@
           // remove private fields from the data for each listener
           filteredData = filter(listener.token, data);
           // send to the listener
+//           jsHub.logger.debug("Sending event %s to listener %s with data", name, listener.token, filteredData);
           evt = new Event(name, filteredData, timestamp);
           extraData = listener.callback(evt);
           // merge any additional data found by the listener into the data
           if (extraData) {
             jsHub.util.merge(data, extraData);
+//             jsHub.logger.debug("Listener %s added data, event is now ", listener.token, data);
           }
         }
       };
@@ -191,6 +193,7 @@
      * be created automatically if not supplied.
      */
     this.trigger = function (eventName, data, timestamp) {
+//       jsHub.logger.group("Event %s triggered with data", eventName, (data || "'none'"));
       // empty object if not defined
       data = data || {};
       // find all registered listeners for the specific event, and for "*"
@@ -211,6 +214,7 @@
       for (var k = 0; k < registered.length; k++) {
         firewall.dispatch(eventName, registered[k], data, timestamp);
       }
+//       jsHub.logger.groupEnd();
 
       // additional special behavior for particular event types
       if (eventName === "plugin-initialization-start") {

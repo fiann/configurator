@@ -1,1 +1,0 @@
-"use strict";YUI().use("*",function(b,a){if(!a.success){}else{}});
