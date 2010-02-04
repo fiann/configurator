@@ -6,8 +6,8 @@ class Plugin::SamplePost < Plugin
   
   def modules
     [ TagModule.new('samples/samples-post-transport', :data_transport),
-      TagModule.new('form-transport/form-transport', :core), 
-      TagModule.new('json/json-stringify', :library) 
+      TagModule.new('form-transport/form-transport', :core_support), 
+      TagModule.new('lib/json2', :library) 
     ]
   end
 

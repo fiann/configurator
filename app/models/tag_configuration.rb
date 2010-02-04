@@ -120,7 +120,7 @@ class TagConfiguration < ActiveRecord::Base
     modules << Plugin::JshubCore.instance.modules
     modules.flatten!
     modules.sort!
-    modules.collect { |m| m.name }
+    modules.uniq.collect { |m| m.name }
   end
   
   # Collect the configuration required for the plugins that are installed

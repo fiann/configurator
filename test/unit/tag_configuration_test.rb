@@ -12,13 +12,11 @@ class TagConfigurationTest < ActiveSupport::TestCase
   
   test "core files are present in configuration" do 
     core_scripts = [
-      "yui/yui",
       "debug/debug",
-      "logger/logger",
-      "jshub/jshub",
       "hub/hub",
-      "domready/domready",
-      "jshub/jshub-technographics"
+      "logger/logger",
+      "jshub/jshub-technographics",
+      "jshub/jshub"
     ]
     config = TagConfiguration.new
     assert_equal core_scripts, config.files
@@ -27,27 +25,24 @@ class TagConfigurationTest < ActiveSupport::TestCase
   
   test "plugin scripts are retrieved correctly" do
     default_scripts = [
-      # module system base
-      "yui/yui",
-      # from jquery plugin - comes first even though plugin specified last
-      'jquery/jquery',
-      # used by logger
+      # third party libraries
       "debug/debug",
+      'jquery/jquery',
       # core files
-      "logger/logger",
       "hub/hub",
-      "jshub/jshub",
-      "domready/domready",
-      # from microformats plugin - NB libraries are first, rollup is last
+      "logger/logger",
+      # data capture APIs
       'microformats/microformats-api',
       "jshub/jshub-technographics",
-      'microformats/microformats',
-      'microformats/hpage-capture', 
+      # from microformats plugin
       'microformats/hauthentication-capture', 
+      'microformats/hpage-capture', 
       'microformats/hproduct-capture', 
       'microformats/hpurchase-capture',
       # from sample get plugin
-      'samples/samples-get-transport'
+      'samples/samples-get-transport',
+      # triggers page view event on page load
+      "jshub/jshub"
     ]
     config = TagConfiguration.new
     config.add_default_plugins!
@@ -67,7 +62,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       get.id.to_s => { "include"=>"true", "server_url"=>"http://www.jshub.org/" }
     }
     exp_config = {
-      "microformats" => {},
+      "microformats-api" => {},
       "samples-get-transport" => { "server_url"=>"http://www.jshub.org/" }
     }
     assert_equal exp_config, config.configuration
