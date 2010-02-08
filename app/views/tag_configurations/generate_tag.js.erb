@@ -2,11 +2,7 @@
 
 <%= generate_content %>
 
-YUI().use('jshub', function(Y) {
-
   // Configuration for Causata transport plugin
 <% configuration.keys.each do |key| -%>
   jsHub.configure("<%= j key %>", <%= configuration[key].to_json %>);
 <% end %>
-
-});
