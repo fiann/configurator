@@ -40,7 +40,7 @@
    * @event  hpurchase-data-found
    * @event  hpurchase-parse-complete
    */
-  var parse = function parse(event) {
+  metadata.eventHandler = function parse(event) {
   
     // Notify start lifecycle event
     jsHub.trigger("hpurchase-parse-start", event);
@@ -131,7 +131,7 @@
    * Bind the plugin to the Hub to look for hAuthentication microformats and add the data
    * to page view events
    */
-  jsHub.bind("page-view", metadata.id, parse);
+  jsHub.bind("page-view", metadata);
   
   /*
    * Last trigger an event to show that the plugin has bene registered

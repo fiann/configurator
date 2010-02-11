@@ -16,11 +16,11 @@
 /*--------------------------------------------------------------------------*/
 
 // JSLint options
-/*global YUI, jsHub */
+/*global jsHub */
 
 "use strict";
 
-YUI.add("samples-post-transport", function (Y) {
+(function () {
 
   /**
    * Metadata about this plug-in for use by UI tools and the Hub
@@ -34,7 +34,7 @@ YUI.add("samples-post-transport", function (Y) {
   /**
    * The events that will be captured and sent to the receiving servers
    */
-  boundEvents = ['page-view', 'authentication', 'checkout'],  
+  boundEvents = ['page-view', 'authentication', 'checkout'];
   
   /**
    * Event driven anonymous function bound to 'page-view'
@@ -42,7 +42,7 @@ YUI.add("samples-post-transport", function (Y) {
    * @param event {Object} the event to serialize and send to the server
    * @property metadata
    */
-  send = function (event) {
+  metadata.eventHandler = function send(event) {
   
     jsHub.logger.group("Sample POST output: sending '%s' event", event.type);
     
@@ -68,13 +68,13 @@ YUI.add("samples-post-transport", function (Y) {
       url += "account/" + account;
     }    
 
-	/**
-	 * Each field in this object is serialized as a name=value pair in the query
-	 * string of the URL that is created for the image request.
-	 * You can put any data in this object. If the value of a field is an array,
-	 * then it will be used to generate multiple name=value pairs in the resulting
-	 * query string.
-	 */
+  	/**
+  	 * Each field in this object is serialized as a name=value pair in the query
+  	 * string of the URL that is created for the image request.
+  	 * You can put any data in this object. If the value of a field is an array,
+  	 * then it will be used to generate multiple name=value pairs in the resulting
+  	 * query string.
+  	 */
     var data = {
       sender: metadata.name + " v" + metadata.version
     };
@@ -97,13 +97,10 @@ YUI.add("samples-post-transport", function (Y) {
    * Bind the plugin to the Hub so as to run when events we are interested in occur
    */
   for (var i = 0; i < boundEvents.length; i++) {
-    jsHub.bind(boundEvents[i], metadata.id, send);
+    jsHub.bind(boundEvents[i], metadata);
   }
   
   // lifecycle notification
   jsHub.trigger("plugin-initialization-complete", metadata);
 
-}, "2.0.0", {
-  requires: ["yui", "hub", "logger", "form-transport"], 
-  after: ["yui"]
-});
+})();

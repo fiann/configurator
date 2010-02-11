@@ -34,7 +34,10 @@
     config = {
       server : null,
       account : null
-    },
+    };
+
+    // First trigger an event to show that the plugin is being registered
+    jsHub.trigger("plugin-initialization-start", metadata);
 
     /**
      * Event driven anonymous function bound to 'page-view'
@@ -42,7 +45,7 @@
      * @param event {Object} the event to serialize and send to the server
      * @property metadata
      */
-    transport = function (event) {
+    metadata.eventHandler = function transport(event) {
 
 //       jsHub.logger.group("Causata output: sending '%s' event", event.type);
 
@@ -85,26 +88,20 @@
       // dispatch via API function
       jsHub.dispatchViaForm("POST", protocol + config.server, outputData);
 //       jsHub.logger.groupEnd();
-    },
+    };
 
     /**
      * Receive a configuration update
      */
-    configure = function (key, value) {
+    metadata.configure = function (key, value) {
       config[key] = value;
     };
-
-    /*
-     * First trigger an event to show that the plugin is being registered
-     */
-    metadata.configure = configure;
-    jsHub.trigger("plugin-initialization-start", metadata);
 
     /*
      * Bind the plugin to the Hub so as to run when events we are interested in occur
      */
     for (var i = 0; i < boundEvents.length; i++) {
-      jsHub.bind(boundEvents[i], metadata.id, transport);
+      jsHub.bind(boundEvents[i], metadata);
     }
 
     // lifecycle notification

@@ -54,7 +54,7 @@
    * @event  hpage-data-found
    * @event  hpage-parse-complete
    */
-  var parse = function parse(event) {
+  metadata.eventHandler = function parse(event) {
   
     // Notify start lifecycle event
     jsHub.trigger("hpage-parse-start", event);
@@ -112,7 +112,7 @@
       // TODO resolve includes first
       
       // jQuery gives an empty string if the element / attribute is not present so cascade through values
-    // to defaults
+      // to defaults
       var root = $(elm);
       
       /*
@@ -211,13 +211,13 @@
    * Bind the plugin to the Hub to look for hPage microformats and add the data
    * to page view events
    */
-  jsHub.bind("page-view", metadata.id, parse);
+  jsHub.bind("page-view", metadata);
   
   /*
    * Bind the plugin to the Hub to look for hPage microformats and add data to
    * page view events when AJAX loads a new partial page view
    */
-  jsHub.bind("content-updated", metadata.id, parse);
+  jsHub.bind("content-updated", metadata);
   
   /*
    * Last trigger an event to show that the plugin has been registered

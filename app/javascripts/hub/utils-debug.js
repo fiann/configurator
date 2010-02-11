@@ -1,12 +1,11 @@
 /**
  * Enhancements to jsHub.util for common functions 
  * used in plugins
- * @module utilities
- * @class PluginAPI
+ * @module utils
  *//*--------------------------------------------------------------------------*/
 
 /*jslint strict: true */
-/*global YUI, jsHub */
+/*global jsHub */
 "use strict";
 
 (function () {

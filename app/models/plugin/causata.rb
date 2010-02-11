@@ -7,7 +7,7 @@ class Plugin::Causata < Plugin
   def modules
     [ TagModule.new('vendor-causata/causata-transport', :data_transport),
       TagModule.new('form-transport/form-transport', :core_support),
-      TagModule.new('lib/json2', :library) 
+      TagModule.new('lib/json2', :core_support) 
     ]
   end
 

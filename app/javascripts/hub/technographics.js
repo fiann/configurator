@@ -2,7 +2,7 @@
  * A plugin to create an analytics object from technographic data 
  *
  * @module data-capture
- * @class technographic-plugin
+ * @class technographics
  *//*--------------------------------------------------------------------------*/
 
 // JSLint options
@@ -17,8 +17,8 @@
    * Metadata about this plug-in for use by UI tools and the Hub
    */
   var metadata = {
-    name: 'Technographic Plugin',
-    id: 'technographic-plugin',
+    name: 'Technographics Plugin',
+    id: 'technographic',
     version: 0.1,
     vendor: 'jsHub.org',
     type: 'data-capture'
@@ -39,7 +39,7 @@
    * @event hub.technographicEvent
    * @event technographic.CompleteParsing
    */
-  var capture = function capture(event) {
+  metadata.eventHandler = function capture(event) {
   
     // Notify start lifecycle event
     jsHub.trigger("technographic-parse-start", event);
@@ -85,7 +85,7 @@
    * Bind the plugin to the Hub to look for hPage microformats and add the data
    * to page view events
    */
-  jsHub.bind("page-view", metadata.id, capture);
+  jsHub.bind("page-view", metadata);
 
   /*
    * Last trigger an event to show that the plugin has bene registered

@@ -248,7 +248,7 @@
    * Note that the field <code>server_url</code> in the string is replaced
    * when the tag is generated.
    */
-  url = "http://api.mixpanel.com/track/",
+  url = "http://api.mixpanel.com/track/";
 
   /**
    * Event driven anonymous function bound to events
@@ -256,7 +256,7 @@
    * @param event {Object} the event to serialize and send to the server
    * @property metadata
    */
-  send = function(event) {
+  metadata.eventHandler = function(event) {
   
 //     jsHub.logger.group("Mixpanel get transport: sending '%s' event", event.type);
 //     jsHub.logger.debug("Event: %o", event);
@@ -304,12 +304,12 @@
 //     jsHub.logger.debug("Dispatch data: %o", dispatch);
     jsHub.dispatchViaImage(url, dispatch);
 //     jsHub.logger.groupEnd();
-  },
+  };
   
   /**
    * Receive a configuration update
    */
-  configure = function (key, value) {
+  metadata.configure = function (key, value) {
     if (key === "account") {
       account = value;
     }
@@ -318,14 +318,13 @@
   /*
    * First trigger an event to show that the plugin is being registered
    */
-  metadata.configure = configure;
   jsHub.trigger("plugin-initialization-start", metadata);
 
   /*
    * Bind the plugin to the Hub so as to run when events we are interested in occur
    */
   for (var i = 0; i < boundEvents.length; i++ ) {
-    jsHub.bind(boundEvents[i], metadata.id, send);
+    jsHub.bind(boundEvents[i], metadata);
   }
   
   // lifecycle notification

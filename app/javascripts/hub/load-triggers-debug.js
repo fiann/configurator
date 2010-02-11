@@ -5,7 +5,7 @@
  * http://dean.edwards.name/weblog/2006/06/again/
  * http://javascript.nwbox.com/IEContentLoaded/
  * 
- * @module jshub
+ * @module load-triggers
  */
 /*--------------------------------------------------------------------------*/
 
@@ -19,7 +19,7 @@
 
   function triggerPageLoadEvents() {
     // Initialise lifecycle triggers
-//     jsHub.logger.info("Triggering page lifecycle events");
+    jsHub.logger.info("Triggering page lifecycle events");
     
     // Don't fire the events more than once
     if (triggerPageLoadEvents.done) {

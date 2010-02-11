@@ -30,7 +30,7 @@
   jsHub.trigger("plugin-initialization-start", metadata);
   
   /**
-   * Event driven anonymous function bound to 'page.viewEvent'
+   * Event driven anonymous function bound to 'page-view' event
    * @method capture
    * @param event {Object}    Event object with current data for the page view.
    * @property metadata
@@ -109,10 +109,6 @@
     return data;
   };
   
-  // Register the code to run when a page-view event is fired
-  jsHub.bind("page-view", metadata.id, capture);
-  
-  
   ////////// Inline events //////////////
   
   /**
@@ -167,5 +163,18 @@
     }
   };
   
-  jsHub.bind("data-capture-start", metadata.id, initializeInlineTracking);
+  /**
+   * Route the event to the correct handler
+   */
+  metadata.eventHandler = function (event) {
+    if (event.type === "page-view") {
+      return capture(event);
+    } else if (event.type === "data-capture-start") {
+      initializeInlineTracking();
+    }
+  };
+  
+  // Register the code to run when a page-view event is fired
+  jsHub.bind("page-view", metadata);
+  jsHub.bind("data-capture-start", metadata);
 })(jQuery);

@@ -4518,7 +4518,3 @@ jQuery.each([ "Height", "Width" ], function(i, name){
 
 });
 })();
-
-YUI.add('jquery', function (Y) {
-  Y.log('jquery module loaded', 'info', 'jsHub');
-}, '1.3.2' , {});

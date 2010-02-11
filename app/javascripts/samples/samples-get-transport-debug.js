@@ -29,15 +29,14 @@
   /**
    * The events that will be captured and sent to the server
    */
-  boundEvents = ['page-view', 'authentication', 'checkout'],  
+  boundEvents = ['page-view', 'authentication', 'checkout'];
   
   /**
    * Event driven anonymous function bound to 'page-view'
-   * @method send
+   * @method eventHandler
    * @param event {Object} the event to serialize and send to the server
-   * @property metadata
    */
-  send = function (event) {
+  metadata.eventHandler = function (event) {
   
     jsHub.logger.group("Sample get transport: sending '%s' event", event.type);
     
@@ -63,13 +62,13 @@
       url += "account/" + account;
     }
     
-	/**
-	 * Each field in this object is serialized as a name=value pair in the query
-	 * string of the URL that is created for the image request.
-	 * You can put any data in this object. If the value of a field is an array,
-	 * then it will be used to generate multiple name=value pairs in the resulting
-	 * query string.
-	 */
+  	/**
+  	 * Each field in this object is serialized as a name=value pair in the query
+  	 * string of the URL that is created for the image request.
+  	 * You can put any data in this object. If the value of a field is an array,
+  	 * then it will be used to generate multiple name=value pairs in the resulting
+  	 * query string.
+  	 */
     var data = {
       sender: metadata.name + " v" + metadata.version,
       pagename: event.data.name || event.data.url || "not defined"
@@ -85,7 +84,7 @@
   /*
    * Bind the plugin to the Hub so as to run when events we are interested in occur
    */
-  jsHub.bind("page-view", metadata.id, send);
+  jsHub.bind("page-view", metadata);
   
   // lifecycle notification
   jsHub.trigger("plugin-initialization-complete", metadata);

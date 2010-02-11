@@ -23,11 +23,11 @@
    */
   Hub = function () {
 
-    /** Stores functions listening to various events */
-    var listeners = {},
-  
     /** Plugins that have registered with the hub. */
-    plugins = [],
+    var plugins = [],
+    
+    /** Events which have already occurred. */
+    eventCache = [],
 
     /** Configuration values cache */
     config = {},
@@ -57,6 +57,67 @@
       this.timestamp = timestamp || jsHub.safe.getTimestamp();
       this.data = data;
     },
+    
+    /**
+     * A store for the listeners registered to each event
+     */
+    EventListenerCache = function () {
+      /** The underlying cache store */
+      var cache = {},
+      
+      /** The listeners registered for the event name */
+      cached = function (eventName) {
+        return cache[eventName] || {
+          "data-capture": [],
+          "data-transport": []
+        };
+      };
+      
+      this.bind = function (eventName, token, phase, callback) {
+//         jsHub.logger.debug("EventListenerCache: registering " + token + " to event " + eventName + " in phase " + phase);
+        var registered = cached(eventName);
+        // Use only one of the valid phase names
+        if (! registered[phase]) {
+//           jsHub.logger.info("EventListenerCache: invalid phase name " + phase + ", using data-capture");
+          phase = "data-capture";
+        }
+        // if already present, then replace the callback function
+        for (var found = false, i = 0; i < registered[phase].length; i++) {
+          if (registered[phase][i].token === token) {
+            registered[phase][i].callback = callback;
+            found = true;
+            break;
+          }
+        }
+        // otherwise add it
+        if (!found) {
+          registered[phase].push(new Listener(token, callback));
+        }
+        cache[eventName] = registered;
+      };
+      
+      this.listenersFor = function (eventName) {
+        // find all registered listeners for the specific event, and for "*"
+        var registered = cached(eventName), registeredStar = cached('*');
+        var deduped = [], all = [].concat(registered['data-capture'])
+        	.concat(registeredStar['data-capture'])
+        	.concat(registered['data-transport'])
+        	.concat(registeredStar['data-transport']);
+        o:
+        for (var i = 0, n1 = all.length; i < n1; i++) {
+          for (var j = 0, n2 = deduped.length; j < n2; j++) {
+            if (deduped[j].token === all[i].token) {
+              continue o;
+            }
+          }
+          deduped.push(all[i]);
+        }
+        return deduped;
+      };
+    },
+
+    /** An instance of the event listener cache */
+    listeners = new EventListenerCache(),
 
     /**
      * The event dispatcher filters event data before passing to listeners
@@ -144,7 +205,8 @@
       };
     },
   
-    firewall = new EventDispatcher(); 
+    /** An instance of the event dispatcher */
+    firewall = new EventDispatcher();
 
     /**
      * Bind a listener to a named event.
@@ -154,32 +216,26 @@
      * Note that "*" is a special event name, which is taken to mean that 
      * the listener wants to be informed of every event that occurs 
      * (provided it has visibility of that event).
-     * @param token {string} an identifier for the listener, which will
-     * be matched against the value of the <code>data-visibility</code>
-     * attribute of the DOM node containing the event.
-     * @param callback {function} the function to call when an event is 
-     * triggered. The function will be called with a single parameter containing
-     * the event object.
+     * @param listener {object} an metadata object describing the listener, which will
+     * contain at least these fields: <code>id</code> the identifier for the plugin, which
+     * may be matched against the value of the <code>data-visibility</code>
+     * attribute of the DOM node containing the event, and <code>callback</code> a function
+     * to be called when the event is fired.
      */
-    this.bind = function (eventName, token, callback) {
-      // TODO validate input data
-      var list = listeners[eventName], found, i;
-      if ('undefined' === typeof list) {
-        list = [];
+    this.bind = function (eventName, listener) {
+      if (typeof eventName !== "string" || eventName === "") {
+//         jsHub.logger.warn("jsHub.bind(): Invalid event name " + eventName);
+        return;
       }
-      // if already present, then replace the callback function
-      for (found = false, i = 0; i < list.length; i++) {
-        if (list[i].token === token) {
-          list[i].callback = callback;
-          found = true;
-          break;
-        } 
+      if (typeof listener !== "object") {
+//         jsHub.logger.warn("jsHub.bind(): Missing listener object " + listener);
+        return;
       }
-      // otherwise add it
-      if (! found) {
-        list.push(new Listener(token, callback));
+      if (! listener.id || ! listener.eventHandler) {
+//         jsHub.logger.warn("jsHub.bind(): Listener object missing required field id or eventHandler");
+        return;
       }
-      listeners[eventName] = list;
+      listeners.bind(eventName, listener.id, listener.type, listener.eventHandler);
     };
 
     /**
@@ -196,21 +252,11 @@
 //       jsHub.logger.group("Event %s triggered with data", eventName, (data || "'none'"));
       // empty object if not defined
       data = data || {};
+      // keep the event in the local cache
+      var evt = new Event(eventName, data, timestamp);
+      eventCache.push(evt);
       // find all registered listeners for the specific event, and for "*"
-      var registered = (listeners[eventName] || []);
-      var found, listener, listeners_all = (listeners["*"] || []), i, j;
-      for (i = 0; i < listeners_all.length; i++) {
-        listener = listeners_all[i];
-        found = false;
-        for (j = 0; j < registered.length; j++) {
-          if (registered[j].token === listener.token) {
-            found = true;
-          }
-        }
-        if (!found) {
-          registered.push(listener);
-        }
-      }
+      var registered = listeners.listenersFor(eventName);
       for (var k = 0; k < registered.length; k++) {
         firewall.dispatch(eventName, registered[k], data, timestamp);
       }
@@ -223,6 +269,29 @@
           this.configure(data.id, config[data.id]);
         }
       }
+    };
+    
+    /**
+     * Retrieve an array of the events which have already been fired.
+     * Primarily used by the Activity Inspector, so that it can be injected after the
+     * page has loaded and still retrieve the events that have already occurred.
+     */
+    this.cachedEvents = function () {
+      // take a deep copy to prevent the data being tampered with 
+      var clone = [], i;
+      for (i = 0; i < eventCache.length; i++) {
+        var evt = eventCache[i], evt_clone = {};
+        evt_clone.type = evt.type;
+        evt_clone.timestamp = evt.timestamp;
+        evt_clone.data = {};
+        for (var field in evt.data) {
+          if (typeof evt.data[field] === 'string' || typeof evt.data[field] === 'number') {
+            evt_clone.data[field] = evt.data[field];
+          }
+        }
+        clone.push(evt_clone);
+      }
+      return clone;
     };
   
     /**

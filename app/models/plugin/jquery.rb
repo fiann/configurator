@@ -5,7 +5,7 @@ class Plugin::Jquery < Plugin
   end
   
   def modules
-    [ TagModule.new('jquery/jquery', :library) ]
+    [ TagModule.new('lib/jquery', :library) ]
   end
   
   def plugin_type

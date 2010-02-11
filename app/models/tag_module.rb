@@ -25,13 +25,10 @@ class TagModule
   
   def <=>(other)
     if LIBRARY_PRECEDENCE[type] == LIBRARY_PRECEDENCE[other.type]
-      if module_name != other.module_name
-        return module_name <=> other.module_name
-      else
-        return submodule_name <=> other.submodule_name
-      end
+      # preserve order that files were added to library
+      return @name <=> other.name
     else
-      return LIBRARY_PRECEDENCE[type] - LIBRARY_PRECEDENCE[other.type]
+      LIBRARY_PRECEDENCE[type] - LIBRARY_PRECEDENCE[other.type]
     end
   end
   

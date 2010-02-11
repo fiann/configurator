@@ -15,8 +15,8 @@ class TagConfigurationTest < ActiveSupport::TestCase
       "debug/debug",
       "hub/hub",
       "logger/logger",
-      "jshub/jshub-technographics",
-      "jshub/jshub"
+      "hub/technographics",
+      "hub/load-triggers"
     ]
     config = TagConfiguration.new
     assert_equal core_scripts, config.files
@@ -27,13 +27,14 @@ class TagConfigurationTest < ActiveSupport::TestCase
     default_scripts = [
       # third party libraries
       "debug/debug",
-      'jquery/jquery',
+      'lib/jquery',
       # core files
       "hub/hub",
       "logger/logger",
       # data capture APIs
       'microformats/microformats-api',
-      "jshub/jshub-technographics",
+      # default plugin
+      "hub/technographics",
       # from microformats plugin
       'microformats/hauthentication-capture', 
       'microformats/hpage-capture', 
@@ -42,7 +43,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       # from sample get plugin
       'samples/samples-get-transport',
       # triggers page view event on page load
-      "jshub/jshub"
+      "hub/load-triggers"
     ]
     config = TagConfiguration.new
     config.add_default_plugins!

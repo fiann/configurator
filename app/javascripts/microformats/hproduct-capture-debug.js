@@ -40,7 +40,7 @@
    * @event  hproduct-data-found
    * @event  hproduct-parse-complete
    */
-  var parse = function parse(event) {
+  metadata.eventHandler = function parse(event) {
   
     // Notify start lifecycle event
     jsHub.trigger("hproduct-parse-start", event);
@@ -203,13 +203,13 @@
    * Bind the plugin to the Hub to look for .hproduct microformats and generate
    * product view events
    */
-  jsHub.bind("page-view", metadata.id, parse);
+  jsHub.bind("page-view", metadata);
     
   /*
    * Bind the plugin to the Hub to look for .hproduct microformats and generate
    * product view events
    */
-  jsHub.bind("content-updated", metadata.id, parse);
+  jsHub.bind("content-updated", metadata);
     
   /*
    * Last trigger an event to show that the plugin has been registered
