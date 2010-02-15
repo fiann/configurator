@@ -2,6 +2,7 @@
 # e.g. APP_CONFIG[:test_run][:vendor][:site]
 # ref: http://blog.innovativethought.net/2009/01/02/making-configuration-files-with-yaml-revised/
 development: &non_production_settings
+  jshub_version: 0.4
       
 test:
   <<: *non_production_settings

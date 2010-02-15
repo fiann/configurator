@@ -14,7 +14,7 @@ class TagConfiguration < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => 'user_id', :case_sensitive => false
   
   # TODO move this to the database when there are more available
-  VERSIONS = %w{ 0.1beta }
+  VERSIONS = [ APP_CONFIG[:jshub_version] ]
   
   # store version history
   after_create :add_revision_message_for_create
