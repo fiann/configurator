@@ -162,7 +162,7 @@
       }
 
       // store references
-      htmlelements = {"doc": doc, "form": form, "iframe": iframe};
+      htmlelements = {"doc": doc, "form": form, "url" : form.action, "iframe": iframe};
 
       // NOTE - for future use give us an opportunity to know when the transport is complete 
       iframe.transportState = 0;
@@ -172,6 +172,10 @@
       // see comments: http://msdn.microsoft.com/en-us/library/ms535258(VS.85).aspx
       iframe.onload = function () {
         jsHub.trigger("form-transport-complete", htmlelements);
+        
+        // remove form and iframe to clean DOM and prevent "resubmit the form" dialogs
+        form.parentNode.removeChild(form);
+        iframe.parentNode.removeChild(iframe);
       };
       // TODO clear iframe cache etc
       iframe.onunload = function () {};

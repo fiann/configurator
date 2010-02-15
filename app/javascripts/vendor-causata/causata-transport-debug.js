@@ -20,7 +20,8 @@
       id: 'causata-transport',
       name: 'Causata Transport Plugin',
       version: 0.1,
-      vendor: 'Causata Inc'
+      vendor: 'Causata Inc', 
+      type: 'data-transport'
     },
 
     /**
