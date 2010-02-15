@@ -52,6 +52,14 @@ module TagConfigurationsHelper
     end
   end
   
+  def generator_url
+    if @tag_configuration.new_record? 
+      new_tag_configuration_url(:only_path => false)
+    else
+      tag_configuration_url(@tag_configuration)
+    end
+  end
+  
   # Used to generate the tag file
   def generate_content
     content = ""

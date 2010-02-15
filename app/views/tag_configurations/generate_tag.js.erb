@@ -2,7 +2,12 @@
 
 <%= generate_content %>
 
-  // Configuration for Causata transport plugin
+// Configuration
+jsHub.configure("inspector", {
+	"Version" : "<%=j @tag_configuration.jshub_version %>",
+  "Generator" : "<%=j generator_url %>",
+  "Configuration" : "<%=j @tag_configuration.name %> (<%= revision_string %>, debug)"
+});
 <% configuration.keys.each do |key| -%>
-  jsHub.configure("<%= j key %>", <%= configuration[key].to_json %>);
+jsHub.configure("<%= j key %>", <%= configuration[key].to_json %>);
 <% end %>
