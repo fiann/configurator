@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   # along with Apache
   config.gem "passenger" if RAILS_ENV == 'production' || RAILS_ENV == 'passenger'
   # SASS for css generation
-  config.gem "haml", :version => '2.0.9'
+  config.gem "haml", :version => '>= 2.0.9'
   # user authentication
   config.gem "authlogic"
   # integration testing
