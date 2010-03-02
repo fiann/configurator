@@ -64,25 +64,36 @@
        * Serialize data as expected format, see
        * https://intra.causata.com/code/causata/wiki/JavascriptTag/WireFormat
        */
-      var outputEvent = {
-        timestamp: event.timestamp,
-        eventType: event.type,
-        attributes: []
-      };
+       var outputEvent = {
+         timestamp: event.timestamp,
+         eventType: event.type,
+         attributes: []
+       };
 
-      for (var field in event.data) {
-        if ("string" === typeof event.data[field] || "number" === typeof event.data[field]) {
-          outputEvent.attributes.push({
-            name: field,
-            value: event.data[field]
-          });
-        }
-      }
+       var appendAttribute = function (array, field, value) {
+         var type = typeof value, i;
+         if ("string" === type || "number" === type) {
+           array.push({
+             name: field,
+             value: value
+           });
+         } else if (jsHub.util.isArray(value)) {
+           for (i = 0; i < value.length; i++) {
+             appendAttribute(array, field, value[i]);
+           }
+         }
+       };
 
-      var outputData = {
-        sender: metadata.name + " v" + metadata.version,
-        event: jsHub.json.stringify(outputEvent)
-      };
+       for (var field in event.data) {
+         if (event.data.hasOwnProperty(field)) {
+           appendAttribute(outputEvent.attributes, field, event.data[field]);
+         }
+       }
+
+       var outputData = {
+         sender: metadata.name + " v" + metadata.version,
+         event: jsHub.json.stringify(outputEvent)
+       };
 
       var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
 
