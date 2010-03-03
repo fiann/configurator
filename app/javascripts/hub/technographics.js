@@ -71,8 +71,8 @@
     // Document referrer is the default for hPage.referrer
     found.referrer = document.referrer;
     if (!data.referrer) {
-      data.referrer = found.referrer;
-      data['referrer-source'] = "document.referrer";
+      data['page-referrer'] = found.referrer;
+      data['page-referrer-source'] = "document.referrer";
     }
     
     // and send to output plugins
