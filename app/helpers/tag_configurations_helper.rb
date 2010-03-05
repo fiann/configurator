@@ -63,8 +63,13 @@ module TagConfigurationsHelper
   # Used to generate the tag file
   def generate_content
     content = ""
-    for file in @tag_configuration.files
-      content += File.read("#{src_folder}/#{file}-#{@tag_type}.js") + "\n"
+    for filename in @tag_configuration.files
+      file = "#{src_folder}/#{filename}-#{@tag_type}.js"
+      if File.exists?(file)
+        content += File.read(file) + "\n"
+      else
+        content += "// skip #{filename}.js\n"
+      end
     end
     content
   end
