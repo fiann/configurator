@@ -48,7 +48,23 @@
      */
     metadata.eventHandler = function transport(event) {
 
-//       jsHub.logger.group("Causata output: sending '%s' event", event.type);
+      // check if this is an event we want to record
+      var listen = false;
+      if ("" + event.data["custom-event"] === "true") {
+        listen = "custom";
+      } else {
+        for (var i = 0; i < boundEvents.length; i++) {
+          if (boundEvents[i] === event.type) {
+            listen = "standard";
+            break;
+          }
+        }
+      }
+      if (! listen) {
+        return;
+      }
+
+//       jsHub.logger.group("Causata output: sending %s event '%s'", listen, event.type);
 
       // cannot send message if server is not configured
       if (typeof config.server !== 'string') {
@@ -112,9 +128,7 @@
     /*
      * Bind the plugin to the Hub so as to run when events we are interested in occur
      */
-    for (var i = 0; i < boundEvents.length; i++) {
-      jsHub.bind(boundEvents[i], metadata);
-    }
+    jsHub.bind("*", metadata);
 
     // lifecycle notification
     jsHub.trigger("plugin-initialization-complete", metadata);
