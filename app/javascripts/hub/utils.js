@@ -108,5 +108,55 @@
     //return the final uri 
     return uri; 
   };
+  
+  /**
+   * Parse a URI query string into an object of name value pairs.
+   * See: http://safalra.com/web-design/javascript/parsing-query-strings/parseQueryString.js
+   * See: http://www.w3.org/TR/REC-html40/interact/forms.html#form-content-type
+   *
+   * @param queryString the queryString to parse. This parameter is optional, 
+   * and if it is not supplied then the query string from the current document's 
+   * URL is used. The query string may start with a question mark, spaces may be 
+   * encoded either as plus signs or the escape sequence '%20', and both ampersands 
+   * and semicolons are permitted as separators.
+   *
+   * @return an object whose property names and values correspond to the decoded 
+   * query string data. Because a single key may occur multiple times in a query 
+   * string, the properties of the returned object are arrays of values.
+   */
+   
+  utils.parseQueryString = function (qs) {
+
+    var components, result = {}, i, pair, key, value;
+
+    // if a query string wasn't specified, use the query string from the URI
+    qs = qs || (location.search ? location.search : '');
+
+    // remove the leading question mark if it is present
+    if (qs.charAt(0) === '?') {
+      qs = qs.substring(1);
+    }
+
+    // replace plus signs in the query string with spaces
+    qs = qs.replace(/\+/g, ' ');
+
+    // split the query string around ampersands and semicolons
+    components = qs.split(/[&;]/g);
+
+    // loop over the query string components
+    for (i = 0; i < components.length; i++) {
+      pair = components[i].split('=');
+      key = decodeURIComponent(pair[0]);
+      value = decodeURIComponent(pair[1] || '');
+
+      // update the parsed query data with this component's key-value pair
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(value);
+    }
+
+    return result;
+  };
 
 })();
