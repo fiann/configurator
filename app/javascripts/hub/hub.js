@@ -258,7 +258,7 @@
       // find all registered listeners for the specific event, and for "*"
       var registered = listeners.listenersFor(eventName);
       for (var k = 0; k < registered.length; k++) {
-        firewall.dispatch(eventName, registered[k], data, timestamp);
+        firewall.dispatch(eventName, registered[k], data, evt.timestamp);
       }
 //       jsHub.logger.groupEnd();
 

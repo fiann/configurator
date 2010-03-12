@@ -184,7 +184,11 @@
       form.target = iframe.id;
       // Submit the form, sent via the iframe
       form.submit();            
-      jsHub.trigger("form-transport-sent", htmlelements);
+      jsHub.trigger("form-transport-sent", {
+        method : method,
+        url : url,
+        data : data
+      });
             
       return htmlelements;
     };

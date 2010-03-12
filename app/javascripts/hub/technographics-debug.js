@@ -58,21 +58,18 @@
     found.url = document.location.href;
     if (!data.url) {
       data.url = found.url;
-      data['url-source'] = "window.location";
     }
     
     // Page title is the default for hPage.title
     found.title = document.title;
     if (!data.title) {
-      data.title = found.title;
-      data['title-source'] = "document.title";
+      data['page-title'] = found.title;
     }
     
     // Document referrer is the default for hPage.referrer
     found.referrer = document.referrer;
     if (!data.referrer) {
       data['page-referrer'] = found.referrer;
-      data['page-referrer-source'] = "document.referrer";
     }
     
     // and send to output plugins
