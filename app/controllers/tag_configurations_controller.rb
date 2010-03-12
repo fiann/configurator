@@ -161,7 +161,7 @@ class TagConfigurationsController < ApplicationController
   
   # GET /tag_configurations/1/generate_debug
   def generate_debug
-    response.headers['Content-Disposition'] = 'attachment; filename=jshub.js'
+    response.headers['Content-Disposition'] = 'attachment; filename=jshub-debug.js'
     @tag_type = 'debug'
     render :content_type => 'text/javascript', :layout => false,
       :template => 'tag_configurations/generate_tag.js.erb'
