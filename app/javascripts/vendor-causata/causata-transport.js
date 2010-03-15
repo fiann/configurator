@@ -127,7 +127,7 @@
      * Receive a configuration update
      */
     metadata.configure = function (key, value) {
-      config[key] = value;
+      config[key] = "" + value;
     };
 
     /*
