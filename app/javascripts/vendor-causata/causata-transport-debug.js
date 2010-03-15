@@ -88,7 +88,7 @@
        
        // account is optional
        if (typeof config.account === 'string') {
-         outputEvent.organizationId = config.account;
+         outputEvent.organization = config.account;
        }
 
        var appendAttribute = function (array, field, value) {
