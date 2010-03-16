@@ -82,8 +82,7 @@
        */
        var outputEvent = {
          timestamp: event.timestamp,
-         eventType: event.type,
-         attributes: []
+         eventType: event.type
        };
        
        // account is optional
@@ -104,11 +103,16 @@
            }
          }
        };
-
+       
+       var attributes = [];
        for (var field in event.data) {
          if (event.data.hasOwnProperty(field)) {
-           appendAttribute(outputEvent.attributes, field, event.data[field]);
+           appendAttribute(attributes, field, event.data[field]);
          }
+       }
+       
+       if (attributes.length > 0) {
+         outputEvent.attributes = attributes;
        }
 
        var outputData = {
