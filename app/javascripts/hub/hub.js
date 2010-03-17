@@ -285,7 +285,8 @@
         evt_clone.timestamp = evt.timestamp;
         evt_clone.data = {};
         for (var field in evt.data) {
-          if (typeof evt.data[field] === 'string' || typeof evt.data[field] === 'number') {
+          // TODO should be a deep clone 
+          if (evt.data.hasOwnProperty(field)) {
             evt_clone.data[field] = evt.data[field];
           }
         }
