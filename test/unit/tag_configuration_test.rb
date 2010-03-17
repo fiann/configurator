@@ -14,6 +14,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
     core_scripts = [
       "debug/debug",
       "hub/hub",
+      "hub/utils",
       "logger/logger",
       "hub/technographics",
       "hub/load-triggers"
@@ -30,6 +31,7 @@ class TagConfigurationTest < ActiveSupport::TestCase
       'lib/jquery',
       # core files
       "hub/hub",
+      "hub/utils",
       "logger/logger",
       # data capture APIs
       'microformats/microformats-api',
