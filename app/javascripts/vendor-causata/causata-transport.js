@@ -91,6 +91,9 @@
        }
 
        var appendAttribute = function (array, field, value) {
+         if (/-source$/.test(field) || (field === "page-referrer" && value === "")) {
+           return;
+         }
          var type = typeof value, i;
          if ("string" === type || "number" === type) {
            array.push({
