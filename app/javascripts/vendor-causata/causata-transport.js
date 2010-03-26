@@ -27,7 +27,7 @@
     /**
      * The events that will be captured and sent to the Causata servers
      */
-    boundEvents = ['page-view', 'product-view', 'authentication', 'checkout', 'site-search'],
+    boundEvents = ['page-view', 'product-view', 'authentication', 'checkout', 'site-search', 'nat-search-ref'],
 
     /**
      * The config object for this plugin
@@ -35,6 +35,89 @@
     config = {
       server : null,
       account : null
+    },
+    
+    /**
+     * Cache for events that can be sent at the same time
+     */
+    cache = [], caching = false,
+    
+    /**
+     * Serialize an attribute on to the event array.
+     */
+    appendAttribute = function (array, field, value) {
+      if (/-source$/.test(field) || (field === "page-referrer" && value === "")) {
+        return;
+      }
+      var type = typeof value, i;
+      if ("string" === type || "number" === type) {
+        array.push({
+          name: field,
+          value: value
+        });
+      } else if (jsHub.util.isArray(value)) {
+        for (i = 0; i < value.length; i++) {
+          appendAttribute(array, field, value[i]);
+        }
+      }
+    },
+
+    /** 
+     * Send events to the server via the dis
+     */
+    sendEvents = function () {
+//       jsHub.logger.group("Causata output: sending %s events", cache.length);
+      
+      // cannot send message if server is not configured
+      if (typeof config.server !== 'string') {
+        jsHub.trigger('plugin-error', {
+          message : "Server hostname not specified",
+          source : metadata.id
+        });
+//         jsHub.logger.groupEnd();
+        return;
+      }
+      
+      var i, srcEvent, outputEvent, field, attributes;
+      var outputData = {
+        sender: metadata.name + " v" + metadata.version,
+        event: []
+      };
+
+      for (i = 0; i < cache.length; i++) {
+        srcEvent = cache[i];
+        
+        /*
+         * Serialize data as expected format, see
+         * https://intra.causata.com/code/causata/wiki/JavascriptTag/WireFormat
+         */
+        outputEvent = {
+          timestamp: srcEvent.timestamp,
+          eventType: srcEvent.type
+        };
+        // account is optional
+        if (typeof config.account === 'string') {
+          outputEvent.organization = config.account;
+        }
+        
+        attributes = [];
+        for (field in srcEvent.data) {
+          if (srcEvent.data.hasOwnProperty(field)) {
+            appendAttribute(attributes, field, srcEvent.data[field]);
+          }
+        }
+        if (attributes.length > 0) {
+          outputEvent.attributes = attributes;
+        }
+        
+        outputData.event.push(jsHub.json.stringify(outputEvent));
+      }
+      cache = [];
+
+      // dispatch via API function
+      var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
+      jsHub.dispatchViaForm("POST", protocol + config.server, outputData);
+//       jsHub.logger.groupEnd();
     };
 
     // First trigger an event to show that the plugin is being registered
@@ -48,6 +131,15 @@
      */
     metadata.eventHandler = function transport(event) {
 
+      // cache events that occur during initial data capture phase
+      if (event.type === "data-capture-start") {
+        caching = true;
+      }
+      if (event.type === "data-capture-complete") {
+        caching = false;
+        sendEvents();
+      }
+
       // check if this is an event we want to record
       var listen = false;
       if ("" + event.data["custom-event"] === "true") {
@@ -60,74 +152,13 @@
           }
         }
       }
-      if (! listen) {
-        return;
+      if (listen) {
+//         jsHub.logger.debug("Causata output: capturing %s event '%s'", listen, event.type);
+        cache.push(event);
+        if (! caching) {
+          sendEvents();
+        }
       }
-
-//       jsHub.logger.group("Causata output: sending %s event '%s'", listen, event.type);
-
-      // cannot send message if server is not configured
-      if (typeof config.server !== 'string') {
-        jsHub.trigger('plugin-error', {
-          message : "Server hostname not specified",
-          source : metadata.id
-        });
-//         jsHub.logger.groupEnd();
-        return;
-      }
-
-      /*
-       * Serialize data as expected format, see
-       * https://intra.causata.com/code/causata/wiki/JavascriptTag/WireFormat
-       */
-       var outputEvent = {
-         timestamp: event.timestamp,
-         eventType: event.type
-       };
-       
-       // account is optional
-       if (typeof config.account === 'string') {
-         outputEvent.organization = config.account;
-       }
-
-       var appendAttribute = function (array, field, value) {
-         if (/-source$/.test(field) || (field === "page-referrer" && value === "")) {
-           return;
-         }
-         var type = typeof value, i;
-         if ("string" === type || "number" === type) {
-           array.push({
-             name: field,
-             value: value
-           });
-         } else if (jsHub.util.isArray(value)) {
-           for (i = 0; i < value.length; i++) {
-             appendAttribute(array, field, value[i]);
-           }
-         }
-       };
-       
-       var attributes = [];
-       for (var field in event.data) {
-         if (event.data.hasOwnProperty(field)) {
-           appendAttribute(attributes, field, event.data[field]);
-         }
-       }
-       
-       if (attributes.length > 0) {
-         outputEvent.attributes = attributes;
-       }
-
-       var outputData = {
-         sender: metadata.name + " v" + metadata.version,
-         event: jsHub.json.stringify(outputEvent)
-       };
-
-      var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
-
-      // dispatch via API function
-      jsHub.dispatchViaForm("POST", protocol + config.server, outputData);
-//       jsHub.logger.groupEnd();
     };
 
     /**

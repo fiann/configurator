@@ -46,10 +46,8 @@
     
   } else if (doc.attachEvent) {
     /* for Internet Explorer */
-    doc.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
-    var script = doc.getElementById("__ie_onload");
-    script.onreadystatechange = function () {
-      if (this.readyState === "complete") {
+    doc.onreadystatechange = function () {
+      if (/interactive|complete/.test(this.readyState)) {
         triggerPageLoadEvents();
       }
     };
