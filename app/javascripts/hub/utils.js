@@ -136,6 +136,11 @@
     if (qs.charAt(0) === '?') {
       qs = qs.substring(1);
     }
+    
+    // we don't want a spurious empty string key
+    if (qs === "") {
+      return {};
+    }
 
     // replace plus signs in the query string with spaces
     qs = qs.replace(/\+/g, ' ');

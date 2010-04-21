@@ -10,7 +10,7 @@
  * <pre>
  *   "name" : "page-name"
  *   "title" : "page-title"
- *   "referrer" : "page-referrer"
+ *   "referrer" : "referrer"
  *   "type" : "page-type"
  *   "category" : "page-category"
  *   "attribute" : attributes object
@@ -97,7 +97,7 @@
     properties = {
       ".name": "page-name",
       ".title": "page-title",
-      ".referrer": "page-referrer",
+      ".referrer": "referrer",
       ".type": "page-type",
       ".fragment": "page-fragment"
     };

@@ -19,7 +19,7 @@
     var metadata = {
       id: 'causata-transport',
       name: 'Causata Transport Plugin',
-      version: 0.1,
+      version: '0.4.2',
       vendor: 'Causata Inc', 
       type: 'data-transport'
     },
@@ -28,6 +28,17 @@
      * The events that will be captured and sent to the Causata servers
      */
     boundEvents = ['page-view', 'product-view', 'authentication', 'checkout', 'site-search', 'nat-search-ref'],
+    
+    /**
+     * Some strings that are used multiple times
+     */
+    string = "string", number = "number",
+    page = "page-", product = "product-", url = "url", referrer = "referrer", 
+    
+    /**
+     * Attributes that are sent as request parameters not event attributes
+     */
+    topLevelAttributes = /^url|tzOffset|sW|sH|wW|wH|colors|plugins$/,
 
     /**
      * The config object for this plugin
@@ -46,7 +57,7 @@
      * Serialize an attribute on to the event array.
      */
     appendAttribute = function (array, field, value) {
-      if (/-source$/.test(field) || (field === "page-referrer" && value === "")) {
+      if (/-source$/.test(field)) {
         return;
       }
       var type = typeof value, i;
@@ -78,7 +89,7 @@
         return;
       }
       
-      var i, srcEvent, outputEvent, field, attributes;
+      var i, srcEvent, outputEvent, field, value, attributes;
       var outputData = {
         sender: metadata.name + " v" + metadata.version,
         event: []
@@ -103,7 +114,17 @@
         attributes = [];
         for (field in srcEvent.data) {
           if (srcEvent.data.hasOwnProperty(field)) {
-            appendAttribute(attributes, field, srcEvent.data[field]);
+            value = srcEvent.data[field];
+            if (topLevelAttributes.test(field)) {
+              outputData[field] = value;
+            } else if (field === "referrer") {
+              if (value === "") {
+                value = "(direct)";
+              }
+              outputData.referrer = value;
+            } else {
+              appendAttribute(attributes, field, value);
+            }
           }
         }
         if (attributes.length > 0) {

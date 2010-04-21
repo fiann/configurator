@@ -19,7 +19,7 @@
   var metadata = {
     name: 'Technographics Plugin',
     id: 'technographic',
-    version: 0.1,
+    version: 0.3,
     vendor: 'jsHub.org',
     type: 'data-capture'
   };
@@ -65,7 +65,7 @@
     jsHub.trigger("technographic-parse-start", event);
 
     // extract hPage from html dom
-    var document = window.document, data = event.data, found = {};
+    var win = window, document = win.document, screen = win.screen, data = event.data, found = {};
     
     /*
      * collect technographic environment data, e.g. screen size, browser plugins, 
@@ -88,13 +88,13 @@
     
     // Document referrer is the default for hPage.referrer
     found.referrer = document.referrer;
-    if (!data['page-referrer']) {
-      data['page-referrer'] = found.referrer;
+    if (!data.referrer) {
+      data.referrer = found.referrer;
     }
     
     // Look for search engine in referrer URL
-    if (data['page-referrer']) {
-      var referrer = data['page-referrer'];
+    if (data.referrer) {
+      var referrer = data.referrer;
       var testReferrer = function (param, host) {
         var hnRegexp = new RegExp("^http(s)?:\\/\\/(www\\.)?((.+\\.)?" + host + ")\\/"),
           qsRegexp = new RegExp("\\?(.+[&;])?" + param + "=([^&;]+)([&;].*)?$");
@@ -116,6 +116,16 @@
         }
       });
     }
+    
+    // Screen settings
+    data.wW = win.innerWidth;
+    data.wH = win.innerHeight;
+    data.sW = screen.width;
+    data.sH = screen.height;
+    data.colors = screen.colorDepth;
+    
+    // Timezone
+    data.tzOffset = -(new Date()).getTimezoneOffset();
     
     // and send to output plugins
     jsHub.trigger("technographic-parse-complete", found);

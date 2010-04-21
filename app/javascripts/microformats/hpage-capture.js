@@ -10,7 +10,7 @@
  * <pre>
  *   "name" : "page-name"
  *   "title" : "page-title"
- *   "referrer" : "page-referrer"
+ *   "referrer" : "referrer"
  *   "type" : "page-type"
  *   "category" : "page-category"
  *   "attribute" : attributes object
@@ -97,7 +97,7 @@
     properties = {
       ".name": "page-name",
       ".title": "page-title",
-      ".referrer": "page-referrer",
+      ".referrer": "referrer",
       ".type": "page-type",
       ".fragment": "page-fragment"
     };
@@ -128,6 +128,7 @@
         value = node.getMicroformatPropertyValue(true);
         if (value !== null) {
           nodeData[fieldname] = value;
+          nodeData[fieldname + "-source"] = metadata.id;
         }
       });
 
@@ -144,6 +145,7 @@
       categories = categoryNodes.excerptMultipleValues();
       if (categories !== null) {
         nodeData["page-category"] = categories;
+        nodeData["page-category-source"] = metadata.id;
         // the categories for the overall hPage are the union of what was found previously
         // and in this node. NB $.unique uses identity not value so it doesn't strip duplicate strings
         hPage["page-category"] = (hPage["page-category"] || []);
