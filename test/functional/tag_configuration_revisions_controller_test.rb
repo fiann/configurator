@@ -47,9 +47,11 @@ class TagConfigurationRevisionsControllerTest < ActionController::TestCase
     get :find_by_sha1, { :sha1 => sha1 }
     assert_response :success
     assert_equal "text/javascript", @response.content_type 
-    # JSON is also YAML
-    status = YAML::load @response.body
-    assert_not_nil status
+    # JSON is also YAML, apart from missing whitespace after commas and colons
+    data_string = @response.body.gsub(/,"(\w+)"/, ', "\1"').gsub(/"(\w+)":/, '"\1": ')
+    data = YAML::load data_string
+    assert_not_nil data
+    assert_equal "out of date", data['info']['status']
   end
   
 end
