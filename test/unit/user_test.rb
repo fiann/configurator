@@ -44,7 +44,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def assert_cannot_login_with(email, password)
-    assert ! UserSession.create(:email => email, :password => password)
+    assert ! UserSession.create(:email => email, :password => password).save
     assert_nil controller.session["user_credentials"]
   end
 end
