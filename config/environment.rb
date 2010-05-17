@@ -41,7 +41,7 @@ Rails::Initializer.run do |config|
   # SASS for css generation
   config.gem "haml", :version => '>= 2.0.9'
   # user authentication
-  config.gem "authlogic"
+  config.gem "authlogic", :version => '>= 2.1'
   # integration testing
   config.gem "webrat" if RAILS_ENV == 'test'
   
