@@ -15,6 +15,19 @@ set :deploy_to,   "/var/capistrano/#{application}"
 # your SCM below:
 set :scm,         "git"
 
+# construct the path to the repository
+set :repository,   "git://github.com/fiann/configurator.git"
+
+# Release from a Git tag, not head
+# ref: http://nathanhoad.net/deploy-from-a-git-tag-with-capistrano
+set :branch do
+  default_tag = `git tag`.split("\n").last
+
+  tag = Capistrano::CLI.ui.ask "Tag to deploy, or 'master' for head revision (make sure to push the tag first): [#{default_tag}] "
+  tag = default_tag if tag.empty?
+  tag
+end
+
 #By default, Capistrano will try to use sudo to do certain operations (setting 
 #up your servers, restarting your application, etc.). If you are on a shared 
 #host, sudo might be unavailable to you, or maybe you just want to avoid using sudo.
@@ -37,10 +50,10 @@ namespace :custom do
     run "ln -nfs #{current_path}/public #{webroot}"
   end
 
-  desc 'Output the Subversion version number'
+  desc 'Output the Git tag or revision'
   task :version do
-    run "echo \"r#{real_revision}\" > #{release_path}/app/views/shared/_version.html.erb"
-  end
+    run "echo \"#{branch}\" > #{current_path}/app/views/shared/_version.html.erb"
+  end  
 end
 # use our custom tasks at the appropriate time
 # e.g. before :deploy, :my_custom_task

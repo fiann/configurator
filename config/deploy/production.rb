@@ -6,9 +6,6 @@ puts "Deploying to PRODUCTION"
 set :domain,      "jshub.org"
 set :rails_env,   "jshub"
 
-# construct the path to the repository
-set :repository,   "git://github.com/fiann/configurator.git"
-
 #If you log into your server with a different user name than you are logged 
 #into your local machine with, youll need to tell Capistrano about that user 
 #name.

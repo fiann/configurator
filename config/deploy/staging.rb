@@ -4,13 +4,10 @@
 puts "Deploying to STAGING"
 
 # The gateway server is accessed before anything else and all ssh commands sent via it so that other servers do not have to be exposed through the firewall
-set :gateway,     "gromit.jshub.org"
+set :gateway,     "gromit.etl.office"
 
 set :domain,      "gromit"
 set :rails_env,   "gromit"
-
-# construct the path to the repository
-set :repository,   "git://github.com/fiann/configurator.git"
 
 #If you log into your server with a different user name than you are logged 
 #into your local machine with, youll need to tell Capistrano about that user 
