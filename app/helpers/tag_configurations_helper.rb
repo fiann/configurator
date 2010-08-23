@@ -24,6 +24,10 @@ module TagConfigurationsHelper
     Plugin::Causata.instance
   end
   
+  def google_analytics_plugin
+    Plugin::GoogleAnalytics.instance
+  end
+  
   def sample_post_plugin
     Plugin::SamplePost.instance
   end

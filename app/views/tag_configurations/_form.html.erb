@@ -41,32 +41,50 @@
 
   <fieldset>
   	<h2>3. Choose data transport plugins</h2>
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:causata, :include), true,
+            @tag_configuration.has_plugin?(causata_plugin), 
+            :class => 'configurable' %>
+      <%= label_tag label_for_plugin_param(:causata, :include), 
+  		"Causata plugin", :class => 'right plugin_name' %> <br />
+    </p>
+    <p>
+    	Sends information to a <%= link_to 'Causata', 'http://www.causata.com/' %>
+    	data capture server.
+    </p>
+    <div id="configure_plugin_<%= causata_plugin.id %>">
+      <p>
+        <%= label_tag label_for_plugin_param(:causata, :server), 
+              'Server URL' %>
+        <%= text_field_tag label_for_plugin_param(:causata, :server), 
+              value_for_plugin_param(:causata, :server) %>
+      </p>
+      <p>
+        <%= label_tag label_for_plugin_param(:causata, :account), 'Account ID' %>
+        <%= text_field_tag label_for_plugin_param(:causata, :account), 
+              value_for_plugin_param(:causata, :account) %>
+      </p>
+    </div>
 
-  <p class="plugin_choice">
-    <%= check_box_tag label_for_plugin_param(:causata, :include), true,
-          @tag_configuration.has_plugin?(causata_plugin), 
-          :class => 'configurable' %>
-    <%= label_tag label_for_plugin_param(:causata, :include), 
-		"Causata plugin", :class => 'right plugin_name' %> <br />
-  </p>
-  <p>
-	Sends information to a <%= link_to 'Causata', 'http://www.causata.com/' %>
-	data capture server.
-  </p>
-  <div id="configure_plugin_<%= causata_plugin.id %>">
-    <p>
-      <%= label_tag label_for_plugin_param(:causata, :server), 
-            'Server URL' %>
-      <%= text_field_tag label_for_plugin_param(:causata, :server), 
-            value_for_plugin_param(:causata, :server) %>
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:google_analytics, :include), true,
+            @tag_configuration.has_plugin?(google_analytics_plugin), 
+            :class => 'configurable' %>
+      <%= label_tag label_for_plugin_param(:google_analytics, :include), 
+  		  "Google Analytics plugin", :class => 'right plugin_name' %> <br />
     </p>
     <p>
-      <%= label_tag label_for_plugin_param(:causata, :account), 'Account ID' %>
-      <%= text_field_tag label_for_plugin_param(:causata, :account), 
-            value_for_plugin_param(:causata, :account) %>
+    	Injects the tag library for <%= link_to 'Google Analytics', 'http://www.google.com/analytics/' %>
+    	into the page, and provides the jsHub page name as the page name for Google.
     </p>
-  </div>
-  
+    <div id="configure_plugin_<%= google_analytics_plugin.id %>">
+      <p>
+        <%= label_tag label_for_plugin_param(:google_analytics, :account), 'Account ID' %>
+        <%= text_field_tag label_for_plugin_param(:google_analytics, :account), 
+              value_for_plugin_param(:google_analytics, :account) %>
+      </p>
+    </div>
+
   <p class="plugin_choice">
     <%= check_box_tag label_for_plugin_param(:sample_get, :include), true,
           @tag_configuration.has_plugin?(sample_get_plugin), 
