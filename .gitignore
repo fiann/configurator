@@ -9,6 +9,9 @@ test/reports
 doc/app
 public/website
 
+# Ignore any custom JS files that get pulled in from the core app
+app/javascripts/custom
+
 # Ignore generated static documentation
 website/_site
 
