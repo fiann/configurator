@@ -46,21 +46,36 @@
   </p>
 
   <div id="configure_plugin_<%= causata_plugin.id %>">
-  	<% unless value_for_plugin_param(:causata, :server_url).nil? %>
+  	<% unless value_for_plugin_param(:causata, :server).nil? %>
     <p class="plugin_param" id="server_url">
       <span class="label">Server URL:</span>
-      <span class="value"><%= value_for_plugin_param(:causata, :server_url) %></span>
+      <span class="value"><%= value_for_plugin_param(:causata, :server) %></span>
     </p>
 	<% end %>
-  	<% unless value_for_plugin_param(:causata, :account_id).nil? %>
+  	<% unless value_for_plugin_param(:causata, :account).nil? %>
     <p class="plugin_param" id="account_id">
       <span class="label">Account ID:</span>
-      <span class="value"><%= value_for_plugin_param(:causata, :account_id) %></span>
+      <span class="value"><%= value_for_plugin_param(:causata, :account) %></span>
 	</p>
 	<% end %>
   </div>
 <% end %>  
   
+<% if @tag_configuration.has_plugin? google_analytics_plugin %>
+  <p class="plugin_name" id="plugin-<%= google_analytics_plugin.id %>">
+    Google Analytics plugin.<br />
+	<small>Injects the tag library for <%= link_to 'Google Analytics', 'http://www.google.com/analytics' %>.</small>
+  </p>
+
+  <div id="configure_plugin_<%= google_analytics_plugin.id %>">
+  	<% unless value_for_plugin_param(:google_analytics, :account).nil? %>
+    <p class="plugin_param" id="account">
+      <span class="label">Account ID:</span>
+      <span class="value"><%= value_for_plugin_param(:google_analytics, :account) %></span>
+	</p>
+	<% end %>
+  </div>
+<% end %>
 <% if @tag_configuration.has_plugin? sample_get_plugin %>
   <p class="plugin_name" id="plugin-<%= sample_get_plugin.id %>">
     Sample HTTP GET data transport plugin<br />

@@ -14,4 +14,16 @@ class Plugin::Causata < Plugin
   def plugin_type
     :data_transport
   end
+  
+  def default?
+    true
+  end
+  
+  def default_configuration
+    {
+      "server" => "test.causata.com/rtw",
+      "account" => ""
+    }
+  end
+
 end

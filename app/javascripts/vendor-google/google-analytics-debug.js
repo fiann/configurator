@@ -22,18 +22,23 @@
     version: '0.1',
     vendor: 'jsHub.org',
     type: 'data-transport'
-  };
+  },
   
   /** URL of the google analytics js file */
-  var scriptURL = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') 
-    + '.google-analytics.com/ga.js';
+  scriptURL = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') 
+    + '.google-analytics.com/ga.js',
   
   /**
    * The config object for this plugin
    */
-  var config = {
+  config = {
     account : null
-  };
+  },
+  
+  /**
+   * Google analytics instance
+   */
+  pageTracker = null;
   
   /*
    * First trigger an event to show that the plugin is being registered
@@ -48,10 +53,19 @@
    */
   metadata.eventHandler = function (event) {
     
-    // if it's not defined for some reason, GA will default to url anyway
-    var pageName = event.data['page-name'];
-    if (pageName && pageName.indexOf('?') === -1) {
-      pageName = pageName + document.location.search;
+    var url, eventName = event.type;
+    
+    if (eventName === "page-view") {
+      // if it's not defined for some reason, GA will default to url anyway,
+      // so it doesn't matter if it's blank
+      url = event.data['page-name'];
+      if (url && url.indexOf('?') === -1) {
+        url = url + document.location.search;
+      }
+    } else if (eventName === "site-exit") {
+      url = "/outbound/" + url.replace(/^https?:\/\//, "");
+    } else if (eventName === "download") {
+      url = event.data.url;
     }
     
     // can't work unless account name is defined
@@ -62,10 +76,14 @@
       return;
     }
     
-    jsHub.util.loadScript(scriptURL, function () {
-      var pageTracker = _gat._getTracker(account);
-      pageTracker._trackPageview(pageName);
-    });
+    if (pageTracker === null) {
+      jsHub.util.loadScript(scriptURL, function () {
+        pageTracker = _gat._getTracker(account);
+        pageTracker._trackPageview(url);
+      });
+    } else {
+      pageTracker._trackPageview(url);
+    }
   
     // do not have anything to add to the page view event
     return null;
@@ -81,6 +99,8 @@
   // Register the code to run when a page-view event is fired
   if (jsHub.util && jsHub.util.loadScript) {
     jsHub.bind("page-view", metadata);
+    jsHub.bind("download", metadata);
+    jsHub.bind("site-exit", metadata);
   } else {
     metadata.error = "loadScript";
     jsHub.trigger("plugin-initialization-error", metadata);

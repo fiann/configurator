@@ -27,7 +27,7 @@
     /**
      * The events that will be captured and sent to the Causata servers
      */
-    boundEvents = ['page-view', 'product-view', 'authentication', 'checkout', 'site-search', 'nat-search-ref'],
+    boundEvents = "authentication,checkout,download,nat-search-ref,page-view,product-view,site-exit,site-search".split(','),
     
     /**
      * Some strings that are used multiple times

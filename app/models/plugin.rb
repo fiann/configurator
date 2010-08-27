@@ -11,6 +11,16 @@ class Plugin < ActiveRecord::Base
     /Plugin::(.+)/.match(self.class.name)[1]
   end
   
+  # is it included by default in a new configuration
+  def default?
+    false
+  end
+  
+  # what is the default configuration
+  def default_configuration
+    {}
+  end
+  
   def self.instance
   end
   

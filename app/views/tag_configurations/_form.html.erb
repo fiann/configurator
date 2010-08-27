@@ -13,7 +13,72 @@
   <hr />
 
   <fieldset>
-    <h2>2. Choose data capture plugins</h2>
+    <h2>3. Choose data capture plugins</h2>
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:link_tracker, :trackDownloads), true,
+            value_for_plugin_param(:link_tracker, :trackDownloads), 
+            :class => 'configurable link_tracker' %>
+      <%= label_tag label_for_plugin_param(:link_tracker, :trackDownloads), 
+  		      "Track downloads", :class => 'right plugin_name' %> <br />
+    </p>
+    <p>
+    	Capture links to downloads and other resources on your site that don't
+    	have tags. Tracking code will be automatically added to these links.
+    </p>
+    <div id="configure_plugin_<%= link_tracker_plugin.id %>_trackDownloads">
+      <p><em>File extensions that are treated as download links. Extensions should be separated
+        with a comma or space. </em></p>
+      <p>
+        <%= label_tag label_for_plugin_param(:link_tracker, :downloadLinkTypes), 
+              'File extensions' %>
+        <%= text_field_tag label_for_plugin_param(:link_tracker, :downloadLinkTypes), 
+              value_for_plugin_param(:link_tracker, :downloadLinkTypes) %>
+      </p>
+    </div>    
+    
+    <p class="plugin_choice">
+      <%= check_box_tag label_for_plugin_param(:link_tracker, :trackExternalLinks), true,
+            value_for_plugin_param(:link_tracker, :trackExternalLinks), 
+            :class => 'configurable link_tracker' %>
+      <%= label_tag label_for_plugin_param(:link_tracker, :trackExternalLinks), 
+  		      "Track external links", :class => 'right plugin_name' %> <br />
+    </p>
+    <p>
+    	Capture out-going links from your site. 
+    </p>
+    <div id="configure_plugin_<%= link_tracker_plugin.id %>_track_external_links">
+      <p><em>Domain names that should be treated as belonging to your site, and not tracked as
+        external domains. For example, if the tag is to be placed on www.jshub.org, you might also
+        list blog.jshub.org as a domain belonging to the site, if you have tags present on that
+        site. </em></p>
+      <p>
+        <%= label_tag label_for_plugin_param(:link_tracker, :internalDomains), 
+              'Internal domain names' %>
+        <%= text_field_tag label_for_plugin_param(:link_tracker, :internalDomains), 
+              value_for_plugin_param(:link_tracker, :internalDomains) %>
+      </p>
+    </div>  
+    
+    <!-- Include the link tracking code if tracking either downloads or external links -->
+    <%= hidden_field_tag label_for_plugin_param(:link_tracker, :include), 
+          @tag_configuration.has_plugin?(link_tracker_plugin),
+          :class => 'include_link_tracker' %>
+    <script type="text/javascript" charset="utf-8">
+      (function () {
+        var input = $('.include_link_tracker')[0];
+        var includeLinkTracker = function () {
+          var include = false;
+          $('input:checkbox.link_tracker').each(function () {
+            if (this.checked) {
+              include = true;
+            }
+          });
+          input.value = include;
+        }
+        $('input:checkbox.link_tracker').bind("change click", includeLinkTracker);
+      })();
+    </script>
+      
     <p class="plugin_choice">
       <%= check_box_tag label_for_plugin_param(:microformat, :include), true,
             @tag_configuration.has_plugin?(mf_plugin) %>
@@ -177,7 +242,16 @@
   
   <script type="text/javascript">
     function bindConfig() {
-      var checkbox = this, id = checkbox.id.match(/[0-9]+/), config_div = $('#configure_plugin_'+id);
+      var checkbox = this, 
+        id = (function () {
+          var matches = checkbox.id.match(/([0-9]+)(.*)$/);
+          if (matches[2] == "_include") {
+            return matches[1];
+          } else {
+            return matches[0];
+          }
+        }()), 
+        config_div = $('#configure_plugin_'+id);
       $(checkbox).bind("change click", function(evt) {
         if (evt.target.checked) {
           config_div.show('medium');
@@ -186,8 +260,8 @@
         }
       });
       if (! checkbox.checked) {
-	  	config_div.hide();
-	  }
+  	  	config_div.hide();
+  	  }
     }
     
     $('input:checkbox.configurable').each(bindConfig);

@@ -49,7 +49,7 @@ class TagConfigurationsController < ApplicationController
   # GET /tag_configurations/new.xml
   def new
     @tag_configuration = TagConfiguration.new
-    @tag_configuration.add_default_plugins!
+    @tag_configuration.add_default_configuration!
     @col2 = "form_tips"
 
     respond_to do |format|

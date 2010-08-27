@@ -4,6 +4,10 @@ module TagConfigurationsHelper
     TagConfiguration::VERSIONS
   end
   
+  def link_tracker_plugin
+    Plugin::LinkTracker.instance
+  end
+  
   def jquery_plugin
     Plugin::Jquery.instance
   end

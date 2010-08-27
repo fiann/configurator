@@ -22,10 +22,9 @@ class TagConfiguration < ActiveRecord::Base
   after_update :add_revision_message_for_update
   
   # a new empty instance should include the default plugins
-  def add_default_plugins!
-    plugins << Plugin::Microformat.instance
-    plugins << Plugin::SampleGet.instance
-    plugins << Plugin::Jquery.instance
+  def add_default_configuration!
+    plugins << Plugin::LinkTracker.instance
+    plugins << Plugin::Causata.instance
   end
   
   # update the plugins included in the configuration from a map of ids and parameters
@@ -87,17 +86,21 @@ class TagConfiguration < ActiveRecord::Base
   end
   
   def has_plugin?(plugin)
-    if changed?
+    if new_record?
+      plugin.default? 
+    else
       tag_configuration_plugins.each { |p| return true if p.plugin.id == plugin.id }
       false
-    else
-      plugins.include? plugin 
     end
   end
   
   def parameters_for_plugin(plugin)
-    tag_configuration_plugins.each{|p| return p.parameters if p.plugin.id == plugin.id}
-    {}
+    if new_record?
+      return plugin.default_configuration
+    else
+      tag_configuration_plugins.each{|p| return p.parameters if p.plugin.id == plugin.id}
+      {}
+    end
   end
   
   def has_markup_plugins?
