@@ -67,7 +67,7 @@
    * Callback fired when a link is clicked
    */
   var linkHandler = function (event) {
-    var link = this, target = link.target, timeoutId, eventName = null,
+    var link = (event.srcElement || event.target || this), target = link.target, timeoutId, eventName = null,
       goImmediately = (target !== "" && target !== "_self" && target !== window.name);
     if (trackExternalLinks 
       && link.hostname !== window.location.hostname 
@@ -94,10 +94,12 @@
         url : link.href,
         timeoutId : timeoutId
       });      
+      return goImmediately;
+    } else {
+      return true;
     }
-    return goImmediately;
-   };
-  
+  };
+     
   /**
    * Instrument links to capture links to external sites and downloads, when triggered by the 'data-capture-start' event
    * @method capture

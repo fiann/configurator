@@ -4,8 +4,6 @@
  * @class jsHub
  *//*--------------------------------------------------------------------------*/
 
-// JSLint options
-/*global jQuery */
 "use strict";
 
 (function () {

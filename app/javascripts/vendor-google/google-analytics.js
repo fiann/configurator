@@ -25,7 +25,7 @@
   },
   
   /** URL of the google analytics js file */
-  scriptURL = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') 
+  scriptURL = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') 
     + '.google-analytics.com/ga.js',
   
   /**
@@ -78,7 +78,7 @@
     
     if (pageTracker === null) {
       jsHub.util.loadScript(scriptURL, function () {
-        pageTracker = _gat._getTracker(account);
+        pageTracker = this._gat._getTracker(account);
         pageTracker._trackPageview(url);
       });
     } else {
