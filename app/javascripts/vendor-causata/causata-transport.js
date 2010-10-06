@@ -19,7 +19,7 @@
     var metadata = {
       id: 'causata-transport',
       name: 'Causata Transport Plugin',
-      version: '0.4.2',
+      version: '0.4.3',
       vendor: 'Causata Inc', 
       type: 'data-transport'
     },
@@ -32,8 +32,7 @@
     /**
      * Some strings that are used multiple times
      */
-    string = "string", number = "number",
-    page = "page-", product = "product-", url = "url", referrer = "referrer", 
+    string = "string", 
     
     /**
      * Attributes that are sent as request parameters not event attributes
@@ -61,7 +60,7 @@
         return;
       }
       var type = typeof value, i;
-      if ("string" === type || "number" === type) {
+      if (string === type || "number" === type) {
         array.push({
           name: field,
           value: value
@@ -80,7 +79,7 @@
 //       jsHub.logger.group("Causata output: sending %s events", cache.length);
       
       // cannot send message if server is not configured
-      if (typeof config.server !== 'string') {
+      if (typeof config.server !== string) {
         jsHub.trigger('plugin-error', {
           message : "Server hostname not specified",
           source : metadata.id
@@ -107,7 +106,7 @@
           eventType: srcEvent.type
         };
         // account is optional
-        if (typeof config.account === 'string') {
+        if (typeof config.account === string) {
           outputEvent.organization = config.account;
         }
         
@@ -165,6 +164,8 @@
       var listen = false;
       if ("" + event.data["custom-event"] === "true") {
         listen = "custom";
+      } else if (event.type.match(/^error-/)) {
+        listen = "standard";
       } else {
         for (var i = 0; i < boundEvents.length; i++) {
           if (boundEvents[i] === event.type) {
