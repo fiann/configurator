@@ -19,7 +19,7 @@
   var metadata = {
     name: 'Google Analytics Plugin',
     id: 'google-analytics',
-    version: '0.1',
+    version: '0.2',
     vendor: 'jsHub.org',
     type: 'data-transport'
   },
@@ -63,7 +63,7 @@
         url = url + document.location.search;
       }
     } else if (eventName === "site-exit") {
-      url = "/outbound/" + url.replace(/^https?:\/\//, "");
+      url = "/outbound/" + (event.data.url || "").replace(/^https?:\/\//, "");
     } else if (eventName === "download") {
       url = event.data.url;
     }
