@@ -19,7 +19,7 @@
     var metadata = {
       id: 'causata-transport',
       name: 'Causata Transport Plugin',
-      version: '0.4.3',
+      version: '0.4.4',
       vendor: 'Causata Inc', 
       type: 'data-transport'
     },
@@ -135,8 +135,11 @@
       cache = [];
 
       // dispatch via API function
-      var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://");
-      jsHub.dispatchViaForm("POST", protocol + config.server, outputData);
+      var protocol = (("https:" === jsHub.safe('document').location.protocol) ? "https://" : "http://"),
+        servers = config.server.split(/\s*,\s*/);
+      for (i = 0; i < servers.length; i++) {
+        jsHub.dispatchViaForm("POST", protocol + servers[i], outputData);
+      }
 //       jsHub.logger.groupEnd();
     };
 
