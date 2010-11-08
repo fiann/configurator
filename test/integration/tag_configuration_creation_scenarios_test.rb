@@ -15,14 +15,15 @@ class TagConfigurationCreationScenariosTest < ActionController::IntegrationTest
     click_link "Create a new configuration"
     fill_in "tag_configuration_name", :with => "test one"
     check "Page data HTML microformats"
-    uncheck "Sample HTTP GET plugin"
+    uncheck "Causata plugin"
     click_button "Save"
     
     # Check the details are shown
     assert_select "h1#config_name", "test one"
     assert_select "fieldset#data_capture_plugins" do
-      assert_select "p.plugin_name", :count => 1
+      assert_select "p.plugin_name", :count => 2
       assert_select "p.plugin_name#plugin-#{plugins(:microformat).id}"
+      assert_select "p.plugin_name#plugin-#{plugins(:link_tracker).id}"
     end
     assert_select "fieldset#data_transport_plugins" do
       assert_select "p.plugin_name", :count => 0
@@ -39,7 +40,6 @@ class TagConfigurationCreationScenariosTest < ActionController::IntegrationTest
     get new_tag_configuration_path
     fill_in "tag_configuration_name", :with => "test one"
     check "Page data HTML microformats"
-    check "Google Analytics markup"
     uncheck "Sample HTTP GET plugin"
     
     click_button "Save"
@@ -50,7 +50,7 @@ class TagConfigurationCreationScenariosTest < ActionController::IntegrationTest
     assert_select "fieldset#data_capture_plugins" do
       assert_select "p.plugin_name", :count => 2
       assert_select "p.plugin_name#plugin-#{plugins(:microformat).id}"
-      assert_select "p.plugin_name#plugin-#{plugins(:microformat).id}"
+      assert_select "p.plugin_name#plugin-#{plugins(:link_tracker).id}"
     end
     assert_select "fieldset#data_transport_plugins" do
       assert_select "p.plugin_name", :count => 0

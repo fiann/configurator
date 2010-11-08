@@ -4,6 +4,26 @@
 
 <h2>Data capture plugins</h2>
 
+<% if @tag_configuration.has_plugin? link_tracker_plugin %>
+  <p class="plugin_name" id="plugin-<%= link_tracker_plugin.id %>">
+  	Track downloads <br />
+	<small>
+    Capture links to downloads and other resources on your site that don't
+  	have tags. Tracking code will be automatically added to these links.
+	</small>
+  </p>
+  <div id="configure_plugin_<%= link_tracker_plugin.id %>">
+  	<% unless value_for_plugin_param(:link_tracker, :downloadLinkTypes).nil? %>
+    <p class="plugin_param" id="downloadLinkTypes">
+      <span class="label">Tracked file extensions:</span>
+      <span class="value">
+        <%= value_for_plugin_param(:link_tracker, :downloadLinkTypes).split(',').join(', ') %>
+      </span>
+    </p>
+    <% end %>
+	</div>
+<% end %>
+
 <% if @tag_configuration.has_plugin? mf_plugin %>
   <p class="plugin_name" id="plugin-<%= mf_plugin.id %>">
   	Page data HTML microformats <br />

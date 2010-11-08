@@ -5,7 +5,10 @@ microformat:
   
 sample_get:
   type: Plugin::SampleGet
-  
+
+link_tracker:
+  type: Plugin::LinkTracker
+
 jquery:
   type: Plugin::Jquery
   

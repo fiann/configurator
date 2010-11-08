@@ -86,12 +86,8 @@ class TagConfiguration < ActiveRecord::Base
   end
   
   def has_plugin?(plugin)
-    if new_record?
-      plugin.default? 
-    else
-      tag_configuration_plugins.each { |p| return true if p.plugin.id == plugin.id }
-      false
-    end
+    tag_configuration_plugins.each { |p| return true if p.plugin.id == plugin.id }
+    false
   end
   
   def parameters_for_plugin(plugin)
