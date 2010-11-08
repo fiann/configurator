@@ -19,7 +19,7 @@
   var metadata = {
     name: 'Technographics Plugin',
     id: 'technographic',
-    version: 0.3,
+    version: 0.4,
     vendor: 'jsHub.org',
     type: 'data-capture'
   };
@@ -100,7 +100,7 @@
           qsRegexp = new RegExp("\\?(.+[&;])?" + param + "=([^&;]+)([&;].*)?$");
         if (hnRegexp.test(referrer) && qsRegexp.test(referrer)) {
           jsHub.trigger("nat-search-ref", {
-            "search-keyword" : decodeURIComponent(referrer.match(qsRegexp)[2].replace("+", " ")),
+            "search-string" : decodeURIComponent(referrer.match(qsRegexp)[2].replace("+", " ")),
             "external-referrer" : referrer,
             "search-engine" : referrer.match(hnRegexp)[3]
           });
