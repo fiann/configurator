@@ -3,10 +3,10 @@ require 'test_helper'
 class TagConfigurationTest < ActiveSupport::TestCase
   
   test "default plugins can be added to new object" do
-    default_plugins = [Plugin::Microformat.instance, Plugin::SampleGet.instance, Plugin::Jquery.instance]
+    default_plugins = [Plugin::LinkTracker.instance, Plugin::Causata.instance]
     config = TagConfiguration.new
     assert_equal [], config.plugins
-    config.add_default_plugins!
+    config.add_default_configuration!
     assert_equal default_plugins, config.plugins
   end
   
@@ -28,27 +28,22 @@ class TagConfigurationTest < ActiveSupport::TestCase
     default_scripts = [
       # third party libraries
       "debug/debug",
-      'lib/jquery',
       # core files
       "hub/hub",
+      "form-transport/form-transport",
       "hub/utils",
+      "lib/json2",
       "logger/logger",
-      # data capture APIs
-      'microformats/microformats-api',
       # default plugin
+      "hub/link-tracker",
       "hub/technographics",
-      # from microformats plugin
-      'microformats/hauthentication-capture', 
-      'microformats/hpage-capture', 
-      'microformats/hproduct-capture', 
-      'microformats/hpurchase-capture',
-      # from sample get plugin
-      'samples/samples-get-transport',
+      # from Causata
+      'vendor-causata/causata-transport',
       # triggers page view event on page load
       "hub/load-triggers"
     ]
     config = TagConfiguration.new
-    config.add_default_plugins!
+    config.add_default_configuration!
     assert_equal default_scripts, config.files
   end
   
