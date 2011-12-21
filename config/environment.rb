@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '> 2.3' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -39,9 +39,9 @@ Rails::Initializer.run do |config|
   # along with Apache
   config.gem "passenger" if RAILS_ENV == 'production' || RAILS_ENV == 'passenger'
   # SASS for css generation
-  config.gem "haml", :version => '>= 2.0.9'
+  config.gem "haml", :version => '2.0.9'
   # user authentication
-  config.gem "authlogic", :version => '>= 2.1'
+  config.gem "authlogic", :version => '2.1'
   # integration testing
   config.gem "webrat" if RAILS_ENV == 'test'
   
