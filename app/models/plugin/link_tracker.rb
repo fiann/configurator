@@ -7,7 +7,7 @@ class Plugin::LinkTracker < Plugin
   end
   
   def plugin_type
-    :data_capture
+    :core
   end
   
   def default?
